@@ -58,4 +58,5 @@ moonrain/projects/migrations/
 moonrain/videos/migrations/
 images/*
 db.sqlite3
+.idea/
 

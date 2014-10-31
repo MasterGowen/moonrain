@@ -12,6 +12,8 @@ from moonrain.projects.models import Project
 
 class Video(models.Model):
 
+    parent = models.IntegerField("ID родителя", null=True, default=None)
+
     #VIDEO
     name = models.CharField("Название видео:", max_length=64)
     url = models.URLField("Ссылка:", max_length=256, blank=True, null=True)
