@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib import admin
 from django.forms import ModelForm
 from django.conf import settings
-from django.contrib.auth.models import Group
 from django.utils.html import format_html
 from suit_redactor.widgets import RedactorWidget
 from taggit.managers import TaggableManager
