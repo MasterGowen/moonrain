@@ -52,3 +52,10 @@ docs/_build/
 
 # PyBuilder
 target/
+
+moonrain/accounts/migrations/
+moonrain/projects/migrations/
+moonrain/videos/migrations/
+images/*
+db.sqlite3
+
