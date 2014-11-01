@@ -27,6 +27,7 @@ class UserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+    filter_vertical = ('projects',)
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
