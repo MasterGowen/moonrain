@@ -10,6 +10,9 @@ from taggit.managers import TaggableManager
 from moonrain.projects.models import Project
 
 class Video(models.Model):
+    '''
+    Видео
+    '''
 
     parent = models.IntegerField("ID родителя", null=True, default=None)
 

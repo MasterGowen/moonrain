@@ -27,6 +27,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+    '''
+    Пользователь
+    '''
     email = models.EmailField(
         verbose_name='Электронная почта',
         max_length=255,

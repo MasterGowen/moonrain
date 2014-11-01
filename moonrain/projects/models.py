@@ -8,6 +8,9 @@ from taggit.managers import TaggableManager
 
 
 class Project(models.Model):
+    '''
+    Проект
+    '''
     name = models.CharField("Название проекта:", max_length=64)
     date = models.DateTimeField("Дата создания:", blank=True, auto_now_add=True, null=True)
     comments = models.TextField("Описание:", blank=True)
