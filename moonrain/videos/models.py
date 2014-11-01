@@ -57,4 +57,3 @@ class VideoForm(ModelForm):
 class VideoAdmin(admin.ModelAdmin):
     form = VideoForm
     list_display = ('name', 'project', 'date', 'url', 'author', 'resolution', 'duration', 'Комментарий')
-    readonly_fields = ('parent',)
