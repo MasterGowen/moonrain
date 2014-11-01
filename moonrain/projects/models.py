@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib import admin
 from django.forms import ModelForm
@@ -13,7 +12,13 @@ class Project(models.Model):
     date = models.DateTimeField("Дата создания:", blank=True, auto_now_add=True, null=True)
     comments = models.TextField("Описание:", blank=True)
     tags = TaggableManager(blank=True)
-    is_private = models.BooleanField("Конфиденциальный проект. Доступен только сотрудникам.", default=True)
+
+    VISIBLITY_STATUS = (
+        ('public', 'Доступен для всех'),
+        ('for_users', 'Доступен для зарегистрированных пользователей'),
+        ('for_staff', 'Конфиденциальный проект. Доступен только сотрудникам.')
+    )
+    permission = models.CharField('Права доступа:', max_length=255, choices=VISIBLITY_STATUS)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     def users(self):
