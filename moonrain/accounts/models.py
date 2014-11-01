@@ -36,6 +36,7 @@ class User(AbstractBaseUser):
 
     username = models.CharField(
         verbose_name='Имя пользователя',
+        blank=False,
         max_length=255,
         unique=True,
     )
