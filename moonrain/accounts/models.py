@@ -17,11 +17,10 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, username, password):
         user = self.create_user(email,
                                 password=password,
-                                username='Blank'
-        )
+                                username=username)
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -71,15 +70,11 @@ class User(AbstractBaseUser):
     )
 
     projects = models.ManyToManyField(Project, verbose_name='Проекты',
-                                    blank=True,
-                                    help_text=('The groups this user belongs to. A user will '
-                                               'get all permissions granted to each of '
-                                               'his/her group.'),
-                                    related_name="tmp_user_set",
-                                    related_query_name="user")
+                                      blank=True,
+                                      help_text='Проекты, в которых участвует пользователь',)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FILDS = ['username']
+    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 
@@ -102,6 +97,7 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
 
 class Meta:
     verbose_name = ('Пользователь')

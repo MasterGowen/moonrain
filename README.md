@@ -9,7 +9,7 @@ Requirements:
 =============
 
     python==3.4.1
-    Django==1.7.1 (likely 1.8)
+    Django==1.7.1 #(likely 1.8)
     django-taggit==0.12.2
     django-durationfield==0.5.1
     django-suit==0.2.11
