@@ -20,7 +20,7 @@ Requirements:
     South==1.0.1
     Pillow==2.6.1
 
-Установка
+Установка:
 =========
     pip install -r requirements.txt
     manage.py makemigrations
