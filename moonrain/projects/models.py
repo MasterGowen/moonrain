@@ -16,6 +16,12 @@ class Project(models.Model):
     is_private = models.BooleanField("Конфиденциальный проект. Доступен только сотрудникам.", default=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
+    def users(self):
+        users = []
+        for user in self.user_set.all():
+            users.append(user.username + ': ' + user.email)
+        return format_html('<br />'.join(users))
+
     def Комментарий(self):
         return format_html(self.comments)
 
@@ -37,7 +43,8 @@ class ProjectForm(ModelForm):
             'comments': RedactorWidget(editor_options={'lang': 'ru'})
         }
 
+
 class ProjectAdmin(admin.ModelAdmin):
     form = ProjectForm
-    list_display = ('name', 'author', 'date', 'Комментарий')
+    list_display = ('name', 'author', 'date', 'Комментарий', 'users')
 
