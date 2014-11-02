@@ -18,6 +18,7 @@ Requirements:
     django-debug-toolbar==1.2.1
     django-authtools==1.0.0
     django-jinja==1.0.4
+    Jinja2>=2.7
     South==1.0.1
     Pillow==2.6.1
 
