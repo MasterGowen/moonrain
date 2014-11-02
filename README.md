@@ -8,7 +8,7 @@ Django проект, реализующий хостинг видеофайло�
 Requirements:
 =============
 
-    python==3.4.1
+    python>=3.4
     Django==1.7.1 #(likely 1.8)
     django-taggit==0.12.2
     django-durationfield==0.5.1
@@ -17,6 +17,7 @@ Requirements:
     django-suit-locale==1.0.9
     django-debug-toolbar==1.2.1
     django-authtools==1.0.0
+    django-jinja==1.0.4
     South==1.0.1
     Pillow==2.6.1
 
