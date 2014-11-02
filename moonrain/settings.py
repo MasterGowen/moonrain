@@ -38,13 +38,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "debug_toolbar.apps.DebugToolbarConfig",
-    "taggit",
-    "suit_redactor",
+    'debug_toolbar.apps.DebugToolbarConfig',
+    'taggit',
+    'suit_redactor',
+    'django_jinja',
+
 
     'moonrain.videos',
-    "moonrain.projects",
-    "moonrain.accounts",
+    'moonrain.projects',
+    'moonrain.accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,6 +63,11 @@ MIDDLEWARE_CLASSES = (
 SOUTH_MIGRATION_MODULES = {
     'taggit': 'taggit.south_migrations',
 }
+
+TEMPLATE_LOADERS = (
+    'django_jinja.loaders.AppLoader',
+    'django_jinja.loaders.FileSystemLoader',
+)
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -114,3 +121,7 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates/'),
 )
+
+#Jinja
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
+DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r'.*jinja$'  # Не самый хороший вариант
