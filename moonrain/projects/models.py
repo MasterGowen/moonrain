@@ -1,16 +1,13 @@
 from django.db import models
-from django.contrib import admin
-from django.forms import ModelForm
 from django.conf import settings
 from django.utils.html import format_html
-from suit_redactor.widgets import RedactorWidget
 from taggit.managers import TaggableManager
 
 
 class Project(models.Model):
-    '''
+    """
     Проект
-    '''
+    """
     name = models.CharField("Название проекта:", max_length=64)
     date = models.DateTimeField("Дата создания:", blank=True, auto_now_add=True, null=True)
     comments = models.TextField("Описание:", blank=True)
@@ -43,16 +40,3 @@ class Project(models.Model):
             ("can_view_project", "Просмотр проекта"),
             ("can_edit_project", "Редактирование проекта"),
         )
-
-
-class ProjectForm(ModelForm):
-    class Meta:
-        widgets = {
-            'comments': RedactorWidget(editor_options={'lang': 'ru'})
-        }
-
-
-class ProjectAdmin(admin.ModelAdmin):
-    form = ProjectForm
-    list_display = ('name', 'author', 'date', 'Комментарий', 'users')
-

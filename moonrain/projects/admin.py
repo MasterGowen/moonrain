@@ -1,4 +1,10 @@
 from django.contrib import admin
-from moonrain.projects.models import Project, ProjectAdmin
+from .models import Project
+from .forms import ProjectForm
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    form = ProjectForm
+    list_display = ('name', 'author', 'date', 'Комментарий', 'users')
 
 admin.site.register(Project, ProjectAdmin)
