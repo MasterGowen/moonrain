@@ -7,7 +7,7 @@ from .projects import views as projviews
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^videos/', vidviews.video_list),
-                       url(r'^projects/', projviews.projects_list_all, name='all_projects')
+                       url(r'^$', projviews.projects_list_all, name='all_projects')
 
 )
 

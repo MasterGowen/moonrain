@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import Project
-from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.decorators import login_required
 
 

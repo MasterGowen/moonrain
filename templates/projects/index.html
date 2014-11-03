@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+<div class="container" style="max-width: 900px;">
+
+    {% block content %}
+    <table class="ui table segment">
+        <thead>
+        <tr><th>Название</th>
+            <th>Дата создания</th>
+            <th>Автор</th>
+            <th>Комментарии</th>
+            <th>Доступ</th>
+        </tr></thead>
+        <tbody>
+
+        {% for projects in projects %}
+        <tr>
+            <td>{{ projects.name }}</td>
+            <td>{{ projects.date }}</td>
+            <td>{{ projects.author }}</td>
+            <td>{{ projects.comments|safe }}</td>
+            <td>{{ projects.get_permission_display }}</td>
+        </tr>
+        {% empty %}
+        <p>Нет доступных проектов.</p>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    {% endblock %}
+
+</div>
