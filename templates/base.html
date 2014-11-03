@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+        <html lang="ru">
+            <head>
+                <meta charset="utf-8">
+                <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
+                <script src="{% static "javascript/jQuery.min.js" %}" ></script>
+                <script src="{% static "javascript/semantic.min.js" %}" ></script>
+                <script></script>
+
+                {% block extrahead %}
+                {% endblock %}
+            </head>
+<body>
+
+<div class="ui menu">
+    <div class="container">
+        <div class="title item">
+            <strong>MOONRAIN</strong>
+        </div>
+        <a class="active item">
+            <i class="archive icon"></i> Проекты
+        </a>
+        <a class="item">
+            <i class="video icon"></i> Видео
+        </a>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input placeholder="Поиск..." type="text">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+
+            <div class="ui pointing dropdown link item">
+                <i class="icon user"></i>
+                {% filter force_escape %}
+                    {% firstof user.first_name user.username %}
+                {% endfilter %}
+                <i class="icon dropdown"></i>
+                      <div class="menu">
+                        <a class="item"><i class="sign out icon"></i>Выйти</a>
+                      </div>
+                </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
+</html>
