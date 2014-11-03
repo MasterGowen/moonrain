@@ -21,5 +21,5 @@ if settings.DEBUG:
 #AA
 urlpatterns += patterns('',
                         url(r'^login/', 'django.contrib.auth.views.login', { "template_name": "accounts/login.html" }),
-                        url(r'logout', 'django.contrib.auth.views.logout')
+                        url(r'logout/', 'django.contrib.auth.views.logout')
                         )

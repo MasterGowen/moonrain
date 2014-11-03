@@ -3,23 +3,27 @@
 <div class="container" style="max-width: 900px;">
 
     {% block content %}
-    <table class="ui table segment">
+    <table class="ui compact table segment">
         <thead>
         <tr><th>Название</th>
             <th>Дата создания</th>
             <th>Автор</th>
             <th>Комментарии</th>
             <th>Доступ</th>
+            <th>Теги</th>
         </tr></thead>
         <tbody>
 
         {% for projects in projects %}
         <tr>
-            <td>{{ projects.name }}</td>
+            <td>
+                <a href="/projects/{{ projects.id }}">{{ projects.name }}</a>
+            </td>
             <td>{{ projects.date }}</td>
             <td>{{ projects.author }}</td>
             <td>{{ projects.comments|safe }}</td>
             <td>{{ projects.get_permission_display }}</td>
+            <td>{{ projects.tags.all|join:", " }}</td>
         </tr>
         {% empty %}
         <p>Нет доступных проектов.</p>

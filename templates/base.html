@@ -16,6 +16,8 @@
     body {
         background-image: url("{% static "images/back.png" %}");
         color: #545454;
+        max-width: 1200px;
+        margin: 0 auto;
     }
 </style>
 <div class="ui menu">
@@ -44,7 +46,7 @@
                 {% endfilter %}
                 <i class="icon dropdown"></i>
                       <div class="menu">
-                        <a class="item"><i class="sign out icon"></i>Выйти</a>
+                        <a class="item" href='/logout/?next=/'><i class="sign out icon"></i>Выйти</a>
                       </div>
                 </div>
 
