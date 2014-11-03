@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-from .videos import views
+from .videos import views as vidviews
+from .projects import views as projviews
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^videos/', views.video_list),
+                       url(r'^videos/', vidviews.video_list),
+                       url(r'^projects/', projviews.projects_list_all, name='all_projects')
 
 )
 

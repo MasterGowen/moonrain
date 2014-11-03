@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from .models import Video
-from moonrain.projects.models import Project
 
 
 def video_list(request):
