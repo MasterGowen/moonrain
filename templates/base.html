@@ -1,23 +1,23 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-        <html lang="ru">
-            <head>
-                <meta charset="utf-8">
-                <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
-                <script src="{% static "javascript/jQuery.min.js" %}" ></script>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
+    <script src="{% static "javascript/jQuery.min.js" %}" ></script>
                 <script src="{% static "javascript/semantic.min.js" %}" ></script>
-                <script></script>
+    <script></script>
 
-                {% block extrahead %}
-                {% endblock %}
-            </head>
+    {% block extrahead %}
+    {% endblock %}
+</head>
 <body>
 <style>
     body {
-        background-image: url("{% static "images/back.png" %}");
-        color: #545454;
-        max-width: 1200px;
-        margin: 0 auto;
+    background-image: url("{% static "images/back.png" %}");
+    color: #545454;
+    max-width: 1200px;
+    margin: 0 auto;
     }
 </style>
 <div class="ui menu">
@@ -38,25 +38,27 @@
                     <i class="search link icon"></i>
                 </div>
             </div>
-
+            {% if user.is_authenticated %}
             <div class="ui pointing dropdown link item">
                 <i class="icon user"></i>
                 {% filter force_escape %}
-                    {% firstof user.first_name user.username %}
+                {% firstof user.first_name user.username %}
                 {% endfilter %}
                 <i class="icon dropdown"></i>
-                      <div class="menu">
-                        <a class="item" href='/logout/?next=/'><i class="sign out icon"></i>Выйти</a>
-                      </div>
+                <div class="menu">
+                    <a class="item" href='/logout/?next=/'><i class="sign out icon"></i>Выйти</a>
                 </div>
-
-
-
+            </div>
+            {% else %}
+            <a href="/login" class="ui item">
+                <i class="sign in icon"></i> Войти
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>
 <div class="container">
-     {% block content %}Empty page{% endblock %}
+    {% block content %}Empty page{% endblock %}
 </div>
 </body>
 <script>
