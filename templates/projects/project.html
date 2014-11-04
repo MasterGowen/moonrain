@@ -8,7 +8,20 @@
             <div class="ui label">{{ permission }}</div>
         {% endfor %}
     </h1>
-    <p>{{ permission }}</p>
+
+    {% if project.comments %}
+    <div class="ui small icon message">
+        <i class="info icon"></i>
+        <div class="content">
+            <div class="header">
+                Комментарий к проекту:
+            </div>
+            <p>{{ project.comments|safe }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+
     {% endblock %}
 
 </div>
