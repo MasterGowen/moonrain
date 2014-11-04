@@ -20,11 +20,11 @@
     </div>
 
     {% if project.comments %}
-    <div class="ui icon message">
+    <div class="ui icon message" id="comments">
         <a class="ui right teal corner label">
             <i class="info icon"></i>
         </a>
-        <a class="ui teal ribbon label">
+        <a class="ui teal ribbon label" id="comments-popup">
             Комментарий к проекту:
         </a>
         <div class="content">
@@ -32,8 +32,14 @@
         </div>
     </div>
     {% endif %}
-
-
     {% endblock %}
+    <script>
+    $(#comments-popup).magnificPopup({
+        items: {
+            src: '#comments',
+            type: 'inline'
+        }
+    });
+    </script>
 
 </div>
