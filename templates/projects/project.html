@@ -5,18 +5,17 @@
     {% block content %}
     <h1>{{ project.name }}
         {% for permission in permissions %}
-            <div class="ui label">{{ permission }}</div>
+        <div class="ui label">{{ permission }}</div>
         {% endfor %}
     </h1>
 
     {% if project.comments %}
-    <div class="ui small icon message">
-        <i class="info icon"></i>
+    <div class="ui icon message">
+        <div class="ui teal ribbon label">
+            Комментарий к проекту:
+        </div>
         <div class="content">
-            <div class="header">
-                Комментарий к проекту:
-            </div>
-            <p>{{ project.comments|removetags:"style script"|safe }}</p>
+            <p>{{ project.comments|removetags:"style script"|safe|truncatewords_html:500  }}</p>
         </div>
     </div>
     {% endif %}
