@@ -36,13 +36,19 @@
 <div class="ui menu">
     <div class="container">
         <div class="title item">
-            <a href="/"><strong>MOONRAIN</strong></a>
+            <a href="/">
+                <strong>MOONRAIN</strong>
+            </a>
         </div>
         <a class="active item">
-            <i class="archive icon"></i> Проекты
+            <div class="ui tiny header">
+                <i class="archive icon"></i> Проекты
+            </div>
         </a>
         <a class="item">
-            <i class="video icon"></i> Видео
+            <div class="ui tiny header">
+                <i class="video icon"></i> Видео
+            </div>
         </a>
         <div class="right menu">
             <div class="item">
@@ -53,11 +59,12 @@
             </div>
             {% if user.is_authenticated %}
             <div class="ui pointing dropdown link item">
-                <i class="icon user"></i>
-                {% filter force_escape %}
-                {% firstof user.first_name user.username %}
-                {% endfilter %}
-                <i class="icon dropdown"></i>
+                    <i class="icon user"></i>&nbsp;
+                    {% filter force_escape %}
+                    {% firstof user.first_name user.username %}
+                    {% endfilter %}
+                    &nbsp;
+                    <i class="icon dropdown"></i>
                 <div class="menu">
                     <a class="item" href='/logout/?next=/'><i class="sign out icon"></i>Выйти</a>
                 </div>
