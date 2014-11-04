@@ -22,7 +22,15 @@
             <td>{{ projects.date }}</td>
             <td>{{ projects.author }}</td>
             <td>{{ projects.comments|removetags:"style script"|safe|truncatewords_html:30 }}</td>
-            <td>{{ projects.get_permission_display }}</td>
+            <td>
+                {% if projects.permission == 'public' %}
+                    <div class="ui green message">{{ projects.get_permission_display }}</div>
+                {% elif projects.permission == 'for_users' %}
+                    <div class="ui yellow message">{{ projects.get_permission_display }}</div>
+                {% elif projects.permission == 'for_staff' %}
+                    <div class="ui red message">{{ projects.get_permission_display }}</div>
+                {% endif %}
+            </td>
             <td>
                 <div class="ui small labels">
                 {% for tag in projects.tags.all %}
