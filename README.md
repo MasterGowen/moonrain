@@ -7,8 +7,8 @@ Django проект, реализующий хостинг видеофайло�
 Status
 ======
 
-    ## Project in work. Still not pre-alpha!
-    ## Fork is pointless!
+## Project in work. Still not pre-alpha!
+## Fork is pointless!
     
 
 Requirements:
