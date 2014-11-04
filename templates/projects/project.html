@@ -21,25 +21,45 @@
 
     {% if project.comments %}
     <div class="ui icon message" id="comments">
-        <a class="ui right teal corner label">
+        <a class="ui right teal corner label comments-popup-show">
             <i class="info icon"></i>
         </a>
-        <a class="ui teal ribbon label" id="comments-popup">
+        <a class="ui teal ribbon label comments-popup-show">
             Комментарий к проекту:
         </a>
         <div class="content">
             <p>{{ project.comments|removetags:"style script"|safe|truncatewords_html:500  }}</p>
         </div>
     </div>
+
+    <div id="comments-popup" class="white-popup mfp-hide">
+        <div class="ui teal large ribbon label">
+            Комментарий к проекту:
+        </div>
+        <div class="ui huge center aligned header">
+            {{ project.name }}
+        </div>
+        <div class="ui massive message">
+            {{ project.comments|removetags:"style script"|safe }}
+        </div>
+    </div>
+
     {% endif %}
-    {% endblock %}
-    <script>
-    $(#comments-popup).magnificPopup({
-        items: {
-            src: '#comments',
+
+        <script>
+    $('.comments-popup-show').magnificPopup({
+        items: [
+        {% if project.comments %}
+        {
+            src: $('#comments-popup'),
             type: 'inline'
         }
+        {% endif %}
+        ]
     });
     </script>
 
+
+
+    {% endblock %}
 </div>
