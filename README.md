@@ -4,6 +4,12 @@ moonrain for UrFU
 
 Django проект, реализующий хостинг видеофайлов, разнесённых по проектам.
 
+Status
+======
+
+    ## Project in work. Still not pre-alpha!
+    ## Fork is pointless!
+    
 
 Requirements:
 =============
