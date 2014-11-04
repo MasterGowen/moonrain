@@ -5,9 +5,7 @@
     {% block content %}
     <div class="ui huge header">
         {{ project.name }}
-        <span style="font-size: 14px;">
-            создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
-        </span>
+        {% if user.is_authenticated %}
         {% if project.permission == 'public' %}
         <div class="ui green label">{{ project.get_permission_display }}</div>
         {% elif project.permission == 'for_users' %}
@@ -15,6 +13,10 @@
         {% elif project.permission == 'for_staff' %}
         <div class="ui red label">{{ project.get_permission_display }}</div>
         {% endif %}
+        {% endif %}
+        <div class="sub header">
+            создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
+        </div>
     </div>
 
     {% if project.comments %}

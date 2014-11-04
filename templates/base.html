@@ -58,13 +58,13 @@
                 </div>
             </div>
             {% if user.is_authenticated %}
-            <div class="ui pointing dropdown link item">
-                    <i class="icon user"></i>&nbsp;
-                    {% filter force_escape %}
-                    {% firstof user.first_name user.username %}
-                    {% endfilter %}
-                    &nbsp;
-                    <i class="icon dropdown"></i>
+            <div class="ui dropdown item">
+                <i class="icon user"></i>&nbsp;
+                {% filter force_escape %}
+                {% firstof user.first_name user.username %}
+                {% endfilter %}
+                &nbsp;
+                <i class="icon dropdown"></i>
                 <div class="menu">
                     <a class="item" href='/logout/?next=/'><i class="sign out icon"></i>Выйти</a>
                 </div>
