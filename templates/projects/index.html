@@ -21,7 +21,7 @@
             </td>
             <td>{{ projects.date }}</td>
             <td>{{ projects.author }}</td>
-            <td>{{ projects.comments|safe }}</td>
+            <td>{{ projects.comments|removetags:"style script"|safe }}</td>
             <td>{{ projects.get_permission_display }}</td>
             <td>{{ projects.tags.all|join:", " }}</td>
         </tr>

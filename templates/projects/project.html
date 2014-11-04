@@ -16,7 +16,7 @@
             <div class="header">
                 Комментарий к проекту:
             </div>
-            <p>{{ project.comments|safe }}</p>
+            <p>{{ project.comments|removetags:"style script"|safe }}</p>
         </div>
     </div>
     {% endif %}
