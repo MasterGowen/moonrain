@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-<div class="container" style="max-width: 900px;">
+<div class="container">
 
     {% block content %}
     <table class="ui large table segment">
@@ -17,7 +17,7 @@
         {% for projects in projects %}
         <tr>
             <td>
-                <a href="/projects/{{ projects.id }}">{{ projects.name }}</a>
+                <a href="/projects/{{ projects.id }}/">{{ projects.name }}</a>
             </td>
             <td>{{ projects.date }}</td>
             <td>{{ projects.author }}</td>

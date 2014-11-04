@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from .models import Project
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
+
+# test section
+from django.http import HttpResponse
 
 
 def projects_list_all(request):
@@ -28,3 +33,11 @@ def projects_list_all(request):
     projects = {'projects': projects}
 
     return render(request, 'projects/index.html', projects)
+
+
+def detail(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+    except ObjectDoesNotExist:
+        raise Http404
+    return render_to_response('projects/project.html', {'project': project})
