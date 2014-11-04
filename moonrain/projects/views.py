@@ -37,4 +37,5 @@ def detail(request, project_id):
         project = Project.objects.get(id=project_id)
     except ObjectDoesNotExist:
         raise Http404
-    return render(request, 'projects/project.html', {'project': project})
+    permissions = ('add', 'delete')
+    return render(request, 'projects/project.html', {'project': project, 'permissions': permissions})

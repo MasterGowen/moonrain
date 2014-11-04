@@ -3,7 +3,12 @@
 <div class="container">
 
     {% block content %}
-    <h1>{{ project.name }}</h1>
+    <h1>{{ project.name }}
+        {% for permission in permissions %}
+            <div class="ui label">{{ permission }}</div>
+        {% endfor %}
+    </h1>
+    <p>{{ permission }}</p>
     {% endblock %}
 
 </div>
