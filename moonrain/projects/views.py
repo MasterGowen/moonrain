@@ -40,4 +40,4 @@ def detail(request, project_id):
         project = Project.objects.get(id=project_id)
     except ObjectDoesNotExist:
         raise Http404
-    return render_to_response('projects/project.html', {'project': project})
+    return render(request, 'projects/project.html', {'project': project})
