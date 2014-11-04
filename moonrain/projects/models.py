@@ -16,7 +16,7 @@ class Project(models.Model):
     VISIBLITY_STATUS = (
         ('public', 'Доступен для всех'),
         ('for_users', 'Доступен для зарегистрированных пользователей'),
-        ('for_staff', 'Конфиденциальный проект. Доступен только сотрудникам.')
+        ('for_staff', 'Конфиденциальный проект.')
     )
     permission = models.CharField('Права доступа:', max_length=255, choices=VISIBLITY_STATUS)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)

@@ -1,44 +1,50 @@
 {% extends "base.html" %}
 
+
 <div class="container">
 
     {% block content %}
-    <table class="ui large table segment">
+    <table class="ui basic table">
         <thead>
-        <tr><th>Название</th>
-            <th>Дата создания</th>
-            <th>Автор</th>
-            <th>Комментарии</th>
-            <th>Доступ</th>
-            <th>Теги</th>
+        <tr><th><h4 class="ui header">Название</h4></th>
+            <th><h4 class="ui header">Создан</h4></th>
+            <th><h4 class="ui header">Автор</h4></th>
+            <th><h4 class="ui header">Комментарии</h4></th>
+            <th><h4 class="ui header">Доступ</h4></th>
+            <th><h4 class="ui header">Теги</h4></th>
         </tr></thead>
         <tbody>
 
         {% for projects in projects %}
         <tr>
             <td>
-                <a href="/projects/{{ projects.id }}/">{{ projects.name }}</a>
+                <div class="ui medium header">
+                    <a href="/projects/{{ projects.id }}/">{{ projects.name|capfirst }}</a>
+                </div>
             </td>
-            <td>{{ projects.date }}</td>
-            <td>{{ projects.author }}</td>
+            <td>{{ projects.date|date:"SHORT_DATE_FORMAT" }} {{ projects.date|time:"H:i" }}</td>
+            <td><div class="ui teal label">
+                <i class="user icon">&nbsp;{{ projects.author.username }}</i>
+            </div>
+            </td>
             <td>{{ projects.comments|removetags:"style script"|safe|truncatewords_html:30 }}</td>
             <td>
                 {% if projects.permission == 'public' %}
-                    <div class="ui green message">{{ projects.get_permission_display }}</div>
+                <div class="ui green message">{{ projects.get_permission_display }}</div>
                 {% elif projects.permission == 'for_users' %}
-                    <div class="ui yellow message">{{ projects.get_permission_display }}</div>
+                <div class="ui yellow message">{{ projects.get_permission_display }}</div>
                 {% elif projects.permission == 'for_staff' %}
-                    <div class="ui red message">{{ projects.get_permission_display }}</div>
+                <div class="ui red message">{{ projects.get_permission_display }}</div>
                 {% endif %}
             </td>
             <td>
                 <div class="ui small labels">
-                {% for tag in projects.tags.all %}
-                <div class="ui label" style="margin: .25em;">
-                    {{ tag }}
-                </div>
-                {% endfor %}
+                    {% for tag in projects.tags.all %}
+                    <div class="ui label" style="margin: .25em;">
+                        {{ tag }}
                     </div>
+                    {% endfor %}
+                </div>
             </td>
         </tr>
         {% empty %}
