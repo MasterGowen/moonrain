@@ -14,9 +14,9 @@ class Project(models.Model):
     tags = TaggableManager(blank=True)
 
     VISIBLITY_STATUS = (
-        ('public', 'Доступен для всех'),
-        ('for_users', 'Доступен для зарегистрированных пользователей'),
-        ('for_staff', 'Конфиденциальный проект.')
+        ('public', 'Опубликован'),
+        ('for_users', 'Доступен сотрудникам'),
+        ('for_staff', 'Не опубликован')
     )
     permission = models.CharField('Права доступа:', max_length=255, choices=VISIBLITY_STATUS)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)

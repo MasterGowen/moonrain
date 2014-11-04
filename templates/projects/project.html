@@ -3,17 +3,28 @@
 <div class="container">
 
     {% block content %}
-    <h1>{{ project.name }}
-        {% for permission in permissions %}
-        <div class="ui label">{{ permission }}</div>
-        {% endfor %}
-    </h1>
+    <div class="ui huge header">
+        {{ project.name }}
+        <span style="font-size: 14px;">
+            создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
+        </span>
+        {% if project.permission == 'public' %}
+        <div class="ui green label">{{ project.get_permission_display }}</div>
+        {% elif project.permission == 'for_users' %}
+        <div class="ui blue label">{{ project.get_permission_display }}</div>
+        {% elif project.permission == 'for_staff' %}
+        <div class="ui red label">{{ project.get_permission_display }}</div>
+        {% endif %}
+    </div>
 
     {% if project.comments %}
     <div class="ui icon message">
-        <div class="ui teal ribbon label">
+        <a class="ui right teal corner label">
+            <i class="info icon"></i>
+        </a>
+        <a class="ui teal ribbon label">
             Комментарий к проекту:
-        </div>
+        </a>
         <div class="content">
             <p>{{ project.comments|removetags:"style script"|safe|truncatewords_html:500  }}</p>
         </div>

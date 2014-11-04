@@ -6,13 +6,15 @@
     {% block content %}
     <table class="ui basic table">
         <thead>
-        <tr><th><h4 class="ui header">Название</h4></th>
+        <tr>
+            <th class="two wide"><h4 class="ui header">Название</h4></th>
             <th><h4 class="ui header">Создан</h4></th>
             <th><h4 class="ui header">Автор</h4></th>
             <th><h4 class="ui header">Комментарии</h4></th>
             <th><h4 class="ui header">Доступ</h4></th>
-            <th><h4 class="ui header">Теги</h4></th>
-        </tr></thead>
+            <th class="two wide"><h4 class="ui header">Теги</h4></th>
+        </tr>
+        </thead>
         <tbody>
 
         {% for projects in projects %}
@@ -22,7 +24,7 @@
                     <a href="/projects/{{ projects.id }}/">{{ projects.name|capfirst }}</a>
                 </div>
             </td>
-            <td>{{ projects.date|date:"SHORT_DATE_FORMAT" }} {{ projects.date|time:"H:i" }}</td>
+            <td>{{ projects.date|date:"SHORT_DATE_FORMAT" }}</td>
             <td><div class="ui teal label">
                 <i class="user icon">&nbsp;{{ projects.author.username }}</i>
             </div>
@@ -30,11 +32,11 @@
             <td>{{ projects.comments|removetags:"style script"|safe|truncatewords_html:30 }}</td>
             <td>
                 {% if projects.permission == 'public' %}
-                <div class="ui green message">{{ projects.get_permission_display }}</div>
+                <div class="ui green label">{{ projects.get_permission_display }}</div>
                 {% elif projects.permission == 'for_users' %}
-                <div class="ui yellow message">{{ projects.get_permission_display }}</div>
+                <div class="ui blue label">{{ projects.get_permission_display }}</div>
                 {% elif projects.permission == 'for_staff' %}
-                <div class="ui red message">{{ projects.get_permission_display }}</div>
+                <div class="ui red label">{{ projects.get_permission_display }}</div>
                 {% endif %}
             </td>
             <td>
