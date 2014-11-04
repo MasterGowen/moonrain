@@ -1,11 +1,8 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from .models import Project
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
-
-# test section
-from django.http import HttpResponse
 
 
 def projects_list_all(request):
