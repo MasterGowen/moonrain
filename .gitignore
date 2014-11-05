@@ -59,4 +59,5 @@ moonrain/videos/migrations/
 images/*
 db.sqlite3
 .idea/
+_autofixture/
 

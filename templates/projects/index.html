@@ -14,18 +14,18 @@
     {% for project in projects %}
     <tr>
         <td>
-            {% if user.is_authenticated %}
-            {% if project.permission == 'public' %}
-            <div class="ui bottom small ribbon green label">{{ project.get_permission_display.split|join:"&nbsp;" }}</div>
-            {% elif project.permission == 'for_users' %}
-            <div class="ui bottom small ribbon blue label">{{ project.get_permission_display }}</div>
-            {% elif project.permission == 'for_staff' %}
-            <div class="ui bottom small ribbon red label">{{ project.get_permission_display.split|join:"&nbsp;" }}</div>
-            {% endif %}
-            {% endif %}
-
             <div class="ui medium header">
-                <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}</a>
+                <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}
+                    {% if user.is_authenticated %}
+                    {% if project.permission == 'public' %}
+                    <i class="teal globe icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                    {% elif project.permission == 'for_users' %}
+                    <i class="blue users icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                    {% elif project.permission == 'for_staff' %}
+                    <i class="red key icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                    {% endif %}
+                    {% endif %}
+                </a>
                 {% if user.is_authenticated %}
                 <div class="sub header">
                     {{ project.author.username }}<br />
@@ -55,23 +55,23 @@
 
 
 {% if projects.paginator.num_pages > 1 %}
-    <div class="ui borderless pagination menu">
+<div class="ui borderless pagination menu">
     {% if projects.has_previous %}
-        <a class="item" href="?page={{ projects.previous_page_number }}">
-            <i class="left arrow icon"></i> Предыдущая
-        </a>
+    <a class="item" href="?page={{ projects.previous_page_number }}">
+        <i class="left arrow icon"></i> Предыдущая
+    </a>
     {% endif %}
 
-        {% for page in pages %}
-        <a class="item" href="?page={{ page }}">{{ page }}</a>
-        {% endfor %}
+    {% for page in pages %}
+    <a class="item" href="?page={{ page }}">{{ page }}</a>
+    {% endfor %}
 
     {% if projects.has_next %}
     <a class="item" href="?page={{ projects.next_page_number }}">
         Следующая <i class="icon right arrow"></i>
     </a>
     {% endif %}
-    </div>
+</div>
 {% endif %}
 
 {% endblock %}
