@@ -3,6 +3,7 @@ from .models import Project
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def projects_list_all(request):
@@ -25,9 +26,18 @@ def projects_list_all(request):
                     projects.append(project)
         for_staff(request, project, projects)
 
-    projects = {'projects': reversed(projects)}
+    projects = list(reversed(projects))
 
-    return render(request, 'projects/index.html', projects)
+    paginator = Paginator(projects, 10)
+    page = request.GET.get('page')
+    try:
+        projects = paginator.page(page)
+    except PageNotAnInteger:
+        projects = paginator.page(1)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
+
+    return render(request, 'projects/index.html', {'projects': projects, 'pages': range(1, (paginator.num_pages + 1))})
 
 
 def detail(request, project_id):

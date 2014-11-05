@@ -52,4 +52,26 @@
     {% endfor %}
     </tbody>
 </table>
+
+
+{% if projects.paginator.num_pages > 1 %}
+    <div class="ui borderless pagination menu">
+    {% if projects.has_previous %}
+        <a class="item" href="?page={{ projects.previous_page_number }}">
+            <i class="left arrow icon"></i> Предыдущая
+        </a>
+    {% endif %}
+
+        {% for page in pages %}
+        <a class="item" href="?page={{ page }}">{{ page }}</a>
+        {% endfor %}
+
+    {% if projects.has_next %}
+    <a class="item" href="?page={{ projects.next_page_number }}">
+        Следующая <i class="icon right arrow"></i>
+    </a>
+    {% endif %}
+    </div>
+{% endif %}
+
 {% endblock %}
