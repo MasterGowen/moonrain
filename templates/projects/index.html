@@ -28,19 +28,15 @@
             {% endif %}
 
             <div class="ui medium header">
-                <a href="/projects/{{ projects.id }}/">{{ project.name|capfirst }}</a>
+                <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}</a>
+                {% if user.is_authenticated %}
                 <div class="sub header">
+                    {{ project.author.username }}<br />
                     {{ project.date|date:"SHORT_DATE_FORMAT" }}
                 </div>
+                {% endif %}
             </div>
         </td>
-        {% if user.is_authenticated %}
-        <td>
-            <div class="ui teal label">
-                <i class="user icon">&nbsp;{{ project.author.username }}</i>
-            </div>
-        </td>
-        {% endif %}
         <td>
             {{ project.comments|removetags:"style script"|safe|truncatewords_html:30 }}
         </td>
