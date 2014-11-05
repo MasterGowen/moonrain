@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
     '''
     email = models.EmailField(
         verbose_name='Электронная почта',
-        max_length=255,
+        max_length=32,
         unique=True,
         db_index=True,
     )
@@ -40,7 +40,7 @@ class User(AbstractBaseUser):
     username = models.CharField(
         verbose_name='Имя пользователя',
         blank=False,
-        max_length=255,
+        max_length=32,
         unique=True,
     )
 
@@ -52,13 +52,13 @@ class User(AbstractBaseUser):
 
     first_name = models.CharField(
         verbose_name='Имя',
-        max_length=255,
+        max_length=16,
         blank=True,
     )
 
     last_name = models.CharField(
         verbose_name='Фамилия',
-        max_length=255,
+        max_length=32,
         blank=True,
     )
 
