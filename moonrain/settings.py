@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django_jinja',
     'django_extensions',
     'compressor',
+    'autofixture',
 
 
     'moonrain.videos',
