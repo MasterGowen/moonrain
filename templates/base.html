@@ -3,17 +3,24 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    {% load compress %}
+
+    {% compress css %}
     <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}" />
+    {% endcompress %}
+    {% compress js %}
     <script src="{% static "javascript/jQuery.min.js" %}" ></script>
     <script src="{% static "javascript/semantic.min.js" %}" ></script>
     <script src="{% static "javascript/jquery.magnific-popup.min.js" %}" ></script>
+    {% endcompress %}
     <script></script>
 
     {% block extrahead %}
     {% endblock %}
 </head>
 <body>
+{% compress css %}
 <style>
     body {
     background-image: url("{% static "images/back.png" %}");
@@ -46,6 +53,7 @@
     font-size: 3em;
     }
 </style>
+{% endcompress %}
 <div class="ui menu">
     <div class="container">
         <div class="title item">

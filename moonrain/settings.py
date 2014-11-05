@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'taggit',
     'suit_redactor',
     'django_jinja',
+    'django_extensions',
+    'compressor',
 
 
     'moonrain.videos',
@@ -93,6 +95,7 @@ DATABASES = {
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 
@@ -128,3 +131,6 @@ TEMPLATE_DIRS = (
 #Jinja
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
 DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r'.*jinja$'  # Не самый хороший вариант
+
+STATIC_ROOT = '/static/'
+COMPRESS_ENABLED = True
