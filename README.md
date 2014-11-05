@@ -38,5 +38,5 @@ Requirements:
 =========
     pip install -r requirements.txt
     manage.py syncdb
-    manage.py runserver
+    manage.py runserver_plus
 
