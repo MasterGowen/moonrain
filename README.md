@@ -30,6 +30,7 @@ Requirements:
     django-appconf==0.6
     django-appconf==0.6
     html5lib==0.999
+    lxml==3.3.6
     Jinja2>=2.7
     South==1.0.1
     Pillow==2.6.1

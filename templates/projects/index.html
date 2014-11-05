@@ -1,71 +1,62 @@
 {% extends "base.html" %}
 
+{% block content %}
+<table class="ui table segment">
+    <thead>
+    <tr>
+        <th class="three wide"><h4 class="ui header">Название</h4></th>
+        {% if user.is_authenticated %}
+        <th><h4 class="ui header">Автор</h4></th>
+        {% endif %}
+        <th><h4 class="ui header">Комментарии</h4></th>
+        <th class="two wide"><h4 class="ui header">Теги</h4></th>
+    </tr>
+    </thead>
+    <tbody>
 
-<div class="container">
-
-    {% block content %}
-    <table class="ui basic table">
-        <thead>
-        <tr>
-            <th class="two wide"><h4 class="ui header">Название</h4></th>
-            <th><h4 class="ui header">Создан</h4></th>
+    {% for project in projects %}
+    <tr>
+        <td>
             {% if user.is_authenticated %}
-            <th><h4 class="ui header">Автор</h4></th>
+            {% if project.permission == 'public' %}
+            <div class="ui bottom small ribbon green label">{{ project.get_permission_display.split|join:"&nbsp;" }}</div>
+            {% elif project.permission == 'for_users' %}
+            <div class="ui bottom small ribbon blue label">{{ project.get_permission_display }}</div>
+            {% elif project.permission == 'for_staff' %}
+            <div class="ui bottom small ribbon red label">{{ project.get_permission_display.split|join:"&nbsp;" }}</div>
             {% endif %}
-            <th><h4 class="ui header">Комментарии</h4></th>
-            {% if user.is_authenticated %}
-            <th><h4 class="ui header">Доступ</h4></th>
             {% endif %}
-            <th class="two wide"><h4 class="ui header">Теги</h4></th>
-        </tr>
-        </thead>
-        <tbody>
 
-        {% for projects in projects %}
-        <tr>
-            <td>
-                <div class="ui medium header">
-                    <a href="/projects/{{ projects.id }}/">{{ projects.name|capfirst }}</a>
+            <div class="ui medium header">
+                <a href="/projects/{{ projects.id }}/">{{ project.name|capfirst }}</a>
+                <div class="sub header">
+                    {{ project.date|date:"SHORT_DATE_FORMAT" }}
                 </div>
-            </td>
-            <td>{{ projects.date|date:"SHORT_DATE_FORMAT" }}</td>
-            {% if user.is_authenticated %}
-            <td>
-                <div class="ui teal label">
-                    <i class="user icon">&nbsp;{{ projects.author.username }}</i>
+            </div>
+        </td>
+        {% if user.is_authenticated %}
+        <td>
+            <div class="ui teal label">
+                <i class="user icon">&nbsp;{{ project.author.username }}</i>
+            </div>
+        </td>
+        {% endif %}
+        <td>
+            {{ project.comments|removetags:"style script"|safe|truncatewords_html:30 }}
+        </td>
+        <td>
+            <div class="ui small labels">
+                {% for tag in project.tags.all %}
+                <div class="ui label" style="margin: .25em;">
+                    {{ tag }}
                 </div>
-            </td>
-            {% endif %}
-            <td>{{ projects.comments|removetags:"style script"|safe|truncatewords_html:30 }}</td>
-            {% if user.is_authenticated %}
-            <td>
-                {% if projects.permission == 'public' %}
-                <div class="ui green label">{{ projects.get_permission_display }}</div>
-                {% elif projects.permission == 'for_users' %}
-                <div class="ui blue label">{{ projects.get_permission_display }}</div>
-                {% elif projects.permission == 'for_staff' %}
-                <div class="ui red label">{{ projects.get_permission_display }}</div>
-                {% endif %}
-            </td>
-            {% endif %}
-            <td>
-                <div class="ui small labels">
-                    {% for tag in projects.tags.all %}
-                    <div class="ui label" style="margin: .25em;">
-                        {{ tag }}
-                    </div>
-                    {% endfor %}
-                </div>
-            </td>
-        </tr>
-        {% empty %}
-        <p>Нет доступных проектов.</p>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
-
-    {% endblock %}
-
-</div>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+    {% empty %}
+    <p>Нет доступных проектов.</p>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

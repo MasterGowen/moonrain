@@ -134,3 +134,5 @@ DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r'.*jinja$'  # Не самый хорош
 
 STATIC_ROOT = '/static/'
 COMPRESS_ENABLED = True
+COMPRESS_PARSER = 'compressor.parser.Html5LibParser'
+COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
