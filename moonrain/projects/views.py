@@ -12,22 +12,20 @@ def projects_list_all(request):
         if project.permission == 'public':
             projects.append(project)
 
-    @login_required
-    def for_users(request):
-        for project in Project.objects.all():
+        @login_required
+        def for_users(request, project, projects):
             if project.permission == 'for_users':
                 projects.append(project)
+        for_users(request, project, projects)
 
-    @login_required
-    def for_staff(request):
-        for project in Project.objects.all():
+        @login_required
+        def for_staff(request, project, projects):
             if project.permission == 'for_staff':
                 if request.user == project.author or str(request.user) in str(project.users()):
                     projects.append(project)
-    for_staff(request)
-    for_users(request)
+        for_staff(request, project, projects)
 
-    projects = {'projects': projects}
+    projects = {'projects': reversed(projects)}
 
     return render(request, 'projects/index.html', projects)
 
