@@ -32,6 +32,25 @@
         </div>
     </div>
 
+    {% if videos %}
+    <div class="ui message">
+        <a class="ui right teal corner label">
+            <i class="video icon"></i>
+        </a>
+        <a class="ui teal ribbon label">
+            Видео:
+        </a>
+        <div class="content">
+            <ul>
+                {% for video in videos %}
+                    <li>{{ video.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+    {% endif %}
+
     <div id="comments-popup" class="white-popup mfp-hide">
         <div class="ui teal large ribbon label">
             Комментарий к проекту:

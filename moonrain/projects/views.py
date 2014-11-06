@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Project
+from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
@@ -45,4 +46,7 @@ def detail(request, project_id):
         project = Project.objects.get(id=project_id)
     except ObjectDoesNotExist:
         raise Http404
-    return render(request, 'projects/project.html', {'project': project})
+
+    videos = list(reversed(Video.objects.filter(project=project)))
+
+    return render(request, 'projects/project.html', {'project': project, 'videos': videos})
