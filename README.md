@@ -29,7 +29,8 @@ Requirements:
     django-compressor==1.4
     django-appconf==0.6
     django-appconf==0.6
-    django-autofixture==0.9.1
+    # django-autofixture==0.9.1 # For testing
+    django-mptt==0.6.1
     html5lib==0.999
     lxml==3.3.6
     Jinja2>=2.7
