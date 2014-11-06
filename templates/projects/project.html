@@ -21,10 +21,10 @@
 
     {% if project.comments %}
     <div class="ui icon message" id="comments">
-        <a class="ui right teal corner label comments-popup-show">
+        <a class="ui right teal corner label popup-show">
             <i class="info icon"></i>
         </a>
-        <a class="ui teal ribbon label comments-popup-show">
+        <a class="ui teal ribbon label popup-show">
             Комментарий к проекту:
         </a>
         <div class="content">
@@ -34,10 +34,10 @@
 
     {% if videos %}
     <div class="ui message">
-        <a class="ui right teal corner label">
+        <a class="ui right teal corner label popup-show">
             <i class="video icon"></i>
         </a>
-        <a class="ui teal ribbon label">
+        <a class="ui teal ribbon label popup-show">
             Видео:
         </a>
         <div class="content">
@@ -63,14 +63,32 @@
         </div>
     </div>
 
+    <div id="video-popup" class="white-popup mfp-hide">
+        <div class="ui teal large ribbon label">
+            Комментарий к проекту:
+        </div>
+        <div class="ui huge center aligned header">
+            {{ project.name }}
+        </div>
+        <div class="ui massive message">
+            {{ project.comments|removetags:"style script"|safe }}
+        </div>
+    </div>
+
     {% endif %}
 
         <script>
-    $('.comments-popup-show').magnificPopup({
+    $('.popup-show').magnificPopup({
         items: [
         {% if project.comments %}
         {
             src: $('#comments-popup'),
+            type: 'inline'
+        },
+        {% endif %}
+        {% if videos %}
+        {
+            src: $('#video-popup'),
             type: 'inline'
         }
         {% endif %}

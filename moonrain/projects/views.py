@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Project
 from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -49,4 +49,19 @@ def detail(request, project_id):
 
     videos = list(reversed(Video.objects.filter(project=project)))
 
-    return render(request, 'projects/project.html', {'project': project, 'videos': videos})
+    if project.permission == 'public':
+        return render(request, 'projects/project.html', {'project': project, 'videos': videos})
+    elif project.permission == 'for_users' \
+            and request.user:
+        return render(request, 'projects/project.html', {'project': project, 'videos': videos})
+    elif project.permission == 'for_staff' \
+            and request.user == project.author \
+            or str(request.user) \
+                    in str(project.users()):
+        return render(request, 'projects/project.html', {'project': project, 'videos': videos})
+    else:
+        return HttpResponse(status=403)
+
+
+
+
