@@ -8,14 +8,20 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}" />
+    <link rel="stylesheet" href="{% static "css/video-js.min.css" %}" />
+    <style type="text/css">
+        .vjs-default-skin { color: #cfcbcb; }
+        .vjs-default-skin .vjs-play-progress,
+        .vjs-default-skin .vjs-volume-level { background-color: #000000 }
+        .vjs-default-skin .vjs-control-bar { font-size: 120% }
+    </style>
     {% endcompress %}
     {% compress js %}
     <script src="{% static "javascript/jQuery.min.js" %}" ></script>
     <script src="{% static "javascript/semantic.min.js" %}" ></script>
     <script src="{% static "javascript/jquery.magnific-popup.min.js" %}" ></script>
+    <script src="{% static "javascript/video.js" %}" ></script>
     {% endcompress %}
-    <script></script>
-
     {% block extrahead %}
     {% endblock %}
 </head>
