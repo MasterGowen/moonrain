@@ -95,17 +95,17 @@
                 </div>
             </div>
             {% if user.is_authenticated %}
-            <div class="ui dropdown teal item">
-                <i class="add icon"></i>&nbsp;
+            <div class="ui dropdown floating teal item">
+                <i class="add teal icon"></i>&nbsp;
                 Добавить
                 <i class="icon dropdown"></i>
                 <div class="menu">
                     <a class="item"><i class="archive icon"></i>Проект</a>
                     <a class="item"><i class="video icon"></i>Видео</a>
-                    </div>
                 </div>
-            <div class="ui dropdown teal item">
-                <i class="icon user"></i>&nbsp;
+            </div>
+            <div class="ui dropdown floating teal item">
+                <i class="icon teal user"></i>&nbsp;
                 {% filter force_escape %}
                 {% firstof user.first_name user.username %}
                 {% endfilter %}
@@ -116,11 +116,11 @@
                 </div>
             </div>
             {% else %}
-            <a href="/register" class="ui item">
-                <i class="moon icon"></i> Регистрация
+            <a href="/register" class="ui floating item">
+                <i class="moon teal icon"></i> Регистрация
             </a>
-            <a href="/login" class="ui item">
-                <i class="sign in icon"></i> Войти
+            <a href="/login" class="ui floating item">
+                <i class="sign in teal icon"></i> Войти
             </a>
             {% endif %}
         </div>
