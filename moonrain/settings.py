@@ -25,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
@@ -80,6 +80,7 @@ TEMPLATE_LOADERS = (
 )
 
 AUTH_USER_MODEL = 'accounts.User'
+LOGIN_URL = '/login/'
 
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('email', 'url')
 COMMENTS_APP = 'fluent_comments'

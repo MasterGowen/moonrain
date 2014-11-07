@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "css/semantic.min.css" %}" />
+    <script src="{% static "javascript/jQuery.min.js" %}" ></script>
+                <script src="{% static "javascript/semantic.min.js" %}" ></script>
+    <script></script>
+
+    {% block extrahead %}
+    {% endblock %}
+</head>
+<body>
+<style>
+    body {
+        background-image: url("{% static "images/back.png" %}");
+        color: #545454;
+    }
+    div.container {
+        max-width: 700px;
+        margin: 7em auto;
+    }
+</style>
+
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<div class="ui error message">
+    <div class="header">Введите корректные электронную почту и пароль.</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if form.errors and not form.non_field_errors %}
+<div class="ui error message">
+    <div class="ui error message">Что-то пошло не так...</div>
+</div>
+{% endif %}
+
+<div class="container">
+    <h1 class="ui header">Регистрация в MOONRAIN:</h1>
+    <form method="post" action="{% url 'moonrain.accounts.views.register_user' %}">
+        {% csrf_token %}
+
+        <div class="ui form segment">
+            <div class="field">
+                <h4>{{ form.username.label_tag }}</h4>
+                <div class="ui left labeled icon input">
+                    {{ form.username }}
+                    <i class="user icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h4>{{ form.email.label_tag }}</h4>
+                    <div class="ui left labeled icon input">
+                        {{ form.email }}
+                        <i class="user icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h4>{{ form.first_name.label_tag }}</h4>
+                    <div class="ui left labeled icon input">
+                        {{ form.first_name }}
+                        <i class="user icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h4>{{ form.last_name.label_tag }}</h4>
+                    <div class="ui left labeled icon input">
+                        {{ form.last_name }}
+                        <i class="user icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <h4>{{ form.department.label_tag }}</h4>
+                    <div class="ui left labeled icon input">
+                        {{ form.department }}
+                        <i class="user icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                            <div class="field">
+                <h4>{{ form.password1.label_tag }}</h4>
+                <div class="ui left labeled icon input">
+                    {{ form.password1 }}
+                    <i class="lock icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+                                            <div class="field">
+                <h4>{{ form.password2.label_tag }}</h4>
+                <div class="ui left labeled icon input">
+                    {{ form.password2 }}
+                    <i class="lock icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <input class="ui blue submit button" type="submit" value="register_user"/>
+        </div>
+        <input type="hidden" name="next" value="/" />
+    </form>
+</div>
+
+</body>
+</html>
