@@ -13,5 +13,25 @@
     </div>
     {% endfor %}
 </div>
+{% if videos.paginator.num_pages > 1 %}
+<div class="ui borderless pagination menu">
+    {% if videos.has_previous %}
+    <a class="item" href="?page={{ videos.previous_page_number }}">
+        <i class="left arrow icon"></i> Предыдущая
+    </a>
+    {% endif %}
+
+    {% for page in pages %}
+    <a class="item" href="?page={{ page }}">{{ page }}</a>
+    {% endfor %}
+
+    {% if videos.has_next %}
+    <a class="item" href="?page={{ videos.next_page_number }}">
+        Следующая <i class="icon right arrow"></i>
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+
 
 {% endblock %}
