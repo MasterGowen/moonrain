@@ -77,6 +77,14 @@
 
     {% endif %}
 
+    {% load comments %}
+    <div class="ui message">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fluent_comments/css/ajaxcomments.css" />
+        <script type="text/javascript" src="{{ STATIC_URL }}fluent_comments/js/ajaxcomments.js"></script>
+        {% render_comment_list for project %}
+        {% render_comment_form for project %}
+    </div>
+
         <script>
     $('.popup-show').magnificPopup({
         items: [

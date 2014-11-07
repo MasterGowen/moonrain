@@ -27,6 +27,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -55,7 +56,7 @@ INSTALLED_APPS = (
     'fluent_comments',
     'crispy_forms',
     'django.contrib.comments',
-    'threadedcomments',
+    #'threadedcomments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,6 +80,8 @@ TEMPLATE_LOADERS = (
 )
 
 AUTH_USER_MODEL = 'accounts.User'
+
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('email', 'url')
 COMMENTS_APP = 'fluent_comments'
 
 SUIT_CONFIG = {
