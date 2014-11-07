@@ -43,15 +43,29 @@
         <div class="content" style="margin-top: 2em;">
             {% for video in videos %}
             <div class="ui teal segment">
-                <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
-                <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
-                       preload="auto" width="640" height="360" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
-                       data-setup="{}">
-                    <source src="{{ video.url }}" type='video/mp4'>
+                <div class="ui celled grid">
+                    <div class="row">
+                        <div class="four wide column" style="">
+                            <i class="ui red small label">Кодирование&nbsp;не&nbsp;завершено</i>
+                            <h5><a href="/videos/{{ video.id }}/" >{{ video.name }}</a></h5>
+                            <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
+                                   preload="auto" width="256" height="144" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
+                                   data-setup="{}">
+                                <source src="{{ video.url }}" type='video/mp4'>
 
-                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                </video>
+                                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                            </video>
+                        </div>
+                        <div class="twelve wide column">
+                            <p>{{ video.comments|removetags:"style script"|safe|truncatewords_html:70 }}</p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
+
+
             {% endfor %}
         </div>
     </div>

@@ -1,19 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table class="ui table segment">
-    <thead>
-    <tr>
-        <th class="three wide"><h4 class="ui header">Название</h4></th>
-        <th><h4 class="ui header">Комментарии</h4></th>
-        <th class="two wide"><h4 class="ui header">Теги</h4></th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="ui table segment">
+
 
     {% for project in projects %}
-    <tr>
-        <td>
+    <div class="ui tertiary segment">
             <div class="ui medium header">
                 <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}
                     {% if user.is_authenticated %}
@@ -33,11 +25,11 @@
                 </div>
                 {% endif %}
             </div>
-        </td>
-        <td>
-            {{ project.comments|removetags:"style script"|safe|truncatewords_html:30 }}
-        </td>
-        <td>
+
+            <a href="/projects/{{ project.id }}/">
+                {{ project.comments|removetags:"style script"|safe|truncatewords_html:50 }}
+            </a>
+
             <div class="ui small labels">
                 {% for tag in project.tags.all %}
                 <div class="ui label" style="margin: .25em;">
@@ -45,13 +37,12 @@
                 </div>
                 {% endfor %}
             </div>
-        </td>
-    </tr>
+        </div>
+
     {% empty %}
     <p>Нет доступных проектов.</p>
     {% endfor %}
-    </tbody>
-</table>
+
 
 
 {% if projects.paginator.num_pages > 1 %}
