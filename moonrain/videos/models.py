@@ -49,6 +49,9 @@ class Video(models.Model):
         verbose_name = ('видео')
         verbose_name_plural = ('видео')
 
+    def get_absolute_url(self):
+        return "/videos/%i/" % self.id
+
 
 class VideoForm(ModelForm):
     class Meta:

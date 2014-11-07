@@ -33,6 +33,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/project/%i/" % self.id
+
     class Meta:
         verbose_name = 'проект'
         verbose_name_plural = 'проекты'
