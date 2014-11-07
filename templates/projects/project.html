@@ -43,7 +43,7 @@
         <div class="content">
             {% for video in videos %}
             <div class="ui teal segment">
-                <h2>{{ video.name }}</h2>
+                <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
                 <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
                        preload="auto" width="640" height="360" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
                        data-setup="{}">
