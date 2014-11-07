@@ -18,7 +18,7 @@
                 <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}
                     {% if user.is_authenticated %}
                     {% if project.permission == 'public' %}
-                    <i class="teal globe icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                    <i class="teal globe basic icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
                     {% elif project.permission == 'for_users' %}
                     <i class="blue users icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
                     {% elif project.permission == 'for_staff' %}
