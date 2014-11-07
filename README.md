@@ -38,7 +38,7 @@ Requirements:
     Pillow==2.6.1
     django-fluent-comments 1.0b1
     django-crispy-forms>=1.1.1
-    django-threadedcomments==0.9.0
+    pytz==2014.9
 
 Установка:
 =========
