@@ -79,8 +79,13 @@
 
     {% load comments %}
     <div class="ui message">
+        {% load compress %}
+        {% compress css %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fluent_comments/css/ajaxcomments.css" />
+        {% endcompress %}
+        {% compress js %}
         <script type="text/javascript" src="{{ STATIC_URL }}fluent_comments/js/ajaxcomments.js"></script>
+        {% endcompress %}
         {% render_comment_list for project %}
         {% render_comment_form for project %}
     </div>
