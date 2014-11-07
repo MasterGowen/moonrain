@@ -21,6 +21,7 @@
     <script src="{% static "javascript/semantic.min.js" %}" ></script>
     <script src="{% static "javascript/jquery.magnific-popup.min.js" %}" ></script>
     <script src="{% static "javascript/video.js" %}" ></script>
+    <script></script>
     {% endcompress %}
     {% block extrahead %}
     {% endblock %}
@@ -94,7 +95,16 @@
                 </div>
             </div>
             {% if user.is_authenticated %}
-            <div class="ui dropdown item">
+            <div class="ui dropdown teal item">
+                <i class="add icon"></i>&nbsp;
+                Добавить
+                <i class="icon dropdown"></i>
+                <div class="menu">
+                    <a class="item"><i class="archive icon"></i>Проект</a>
+                    <a class="item"><i class="video icon"></i>Видео</a>
+                    </div>
+                </div>
+            <div class="ui dropdown teal item">
                 <i class="icon user"></i>&nbsp;
                 {% filter force_escape %}
                 {% firstof user.first_name user.username %}
@@ -106,6 +116,9 @@
                 </div>
             </div>
             {% else %}
+            <a href="/register" class="ui item">
+                <i class="moon icon"></i> Регистрация
+            </a>
             <a href="/login" class="ui item">
                 <i class="sign in icon"></i> Войти
             </a>
