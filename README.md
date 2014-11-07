@@ -36,6 +36,9 @@ Requirements:
     Jinja2>=2.7
     South==1.0.1
     Pillow==2.6.1
+    django-fluent-comments 1.0b1
+    django-crispy-forms>=1.1.1
+    django-threadedcomments==0.9.0
 
 Установка:
 =========

@@ -73,6 +73,11 @@ class User(AbstractBaseUser):
         default=False,
     )
 
+    is_superuser = models.BooleanField(
+        verbose_name='Является суперпользователем?',
+        default=False,
+    )
+
     projects = models.ManyToManyField(Project, verbose_name='Проекты',
                                       blank=True,
                                       help_text='Проекты, в которых участвует пользователь',)

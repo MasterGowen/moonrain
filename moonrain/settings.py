@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # 'debug_toolbar.apps.DebugToolbarConfig',
     'taggit',
     'suit_redactor',
@@ -46,10 +47,15 @@ INSTALLED_APPS = (
     'compressor',
     # 'autofixture', # For testing
 
-
     'moonrain.videos',
     'moonrain.projects',
     'moonrain.accounts',
+
+    # Comments
+    'fluent_comments',
+    'crispy_forms',
+    'django.contrib.comments',
+    'threadedcomments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +79,7 @@ TEMPLATE_LOADERS = (
 )
 
 AUTH_USER_MODEL = 'accounts.User'
+COMMENTS_APP = 'fluent_comments'
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'MOONRAIN'

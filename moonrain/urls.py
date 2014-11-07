@@ -24,3 +24,9 @@ urlpatterns += patterns('',
                         url(r'^login/', 'django.contrib.auth.views.login', { "template_name": "accounts/login.html" }),
                         url(r'logout/', 'django.contrib.auth.views.logout')
                         )
+
+#comments
+
+urlpatterns += patterns('',
+    url(r'^project/comments/', include('fluent_comments.urls')),
+)
