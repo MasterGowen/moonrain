@@ -8,6 +8,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^videos/', vidviews.video_list),
                        url(r'^$', projviews.projects_list_all, name='all_projects'),
+                       url(r'^projects/', projviews.projects_list_all, name='all_projects'),
                        url(r'^projects/([0-9]+)/', projviews.detail),
 
 )
@@ -21,7 +22,7 @@ if settings.DEBUG:
 
 #AA
 urlpatterns += patterns('',
-                        url(r'^login/', 'django.contrib.auth.views.login', { "template_name": "accounts/login.html" }),
+                        url(r'^login/', 'django.contrib.auth.views.login', {"template_name": "accounts/login.html"}),
                         url(r'logout/', 'django.contrib.auth.views.logout')
                         )
 

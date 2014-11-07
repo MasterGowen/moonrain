@@ -64,12 +64,18 @@
                 <strong>MOONRAIN</strong>
             </a>
         </div>
-        <a class="active item">
+        <a class="
+        {% if projects %}
+        active
+         {% endif %} item" href="/projects/">
             <div class="ui tiny header">
                 <i class="archive icon"></i> Проекты
             </div>
         </a>
-        <a class="item">
+        <a class="
+          {% if videos %}
+              active
+           {% endif %} item" href="/videos/">
             <div class="ui tiny header">
                 <i class="video icon"></i> Видео
             </div>
