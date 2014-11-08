@@ -3,21 +3,21 @@
 {% block content %}
 <div class="ui table segment">
 
-
     {% for project in projects %}
-    <div class="ui tertiary segment">
+    <article class="ui segment">
+        <a href="/projects/{{ project.id }}/">
             <div class="ui medium header">
-                <a href="/projects/{{ project.id }}/">{{ project.name|capfirst }}
-                    {% if user.is_authenticated %}
-                    {% if project.permission == 'public' %}
-                    <i class="teal globe basic icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
-                    {% elif project.permission == 'for_users' %}
-                    <i class="blue users icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
-                    {% elif project.permission == 'for_staff' %}
-                    <i class="red key icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
-                    {% endif %}
-                    {% endif %}
-                </a>
+                {% if user.is_authenticated %}
+                {% if project.permission == 'public' %}
+                <i class="teal globe basic icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                {% elif project.permission == 'for_users' %}
+                <i class="blue users icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                {% elif project.permission == 'for_staff' %}
+                <i class="red key icon link" data-content="{{ project.get_permission_display }}" data-variation="small"></i>
+                {% endif %}
+                {% endif %}
+                {{ project.name|capfirst|truncatewords:20 }}
+
                 {% if user.is_authenticated %}
                 <div class="sub header">
                     {{ project.author.username }}<br />
@@ -25,25 +25,21 @@
                 </div>
                 {% endif %}
             </div>
+            {{ project.comments|removetags:"style script"|safe|truncatewords_html:50 }}
+        </a>
 
-            <a href="/projects/{{ project.id }}/">
-                {{ project.comments|removetags:"style script"|safe|truncatewords_html:50 }}
-            </a>
-
-            <div class="ui small labels">
-                {% for tag in project.tags.all %}
-                <div class="ui label" style="margin: .25em;">
-                    {{ tag }}
-                </div>
-                {% endfor %}
+        <div class="ui small labels">
+            {% for tag in project.tags.all %}
+            <div class="ui label" style="margin: .25em;">
+                {{ tag }}
             </div>
+            {% endfor %}
         </div>
+    </article>
 
     {% empty %}
     <p>Нет доступных проектов.</p>
     {% endfor %}
-
-
 
 {% if projects.paginator.num_pages > 1 %}
 <div class="ui borderless pagination menu">
