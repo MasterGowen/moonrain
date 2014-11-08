@@ -4,7 +4,7 @@
 <div class="ui table segment">
 
     {% for project in projects %}
-    <article class="ui segment">
+    <article class="ui stacked segment">
         <a href="/projects/{{ project.id }}/">
             <div class="ui medium header">
                 {% if user.is_authenticated %}

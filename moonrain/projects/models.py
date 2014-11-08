@@ -34,7 +34,7 @@ class Project(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/project/%i/" % self.id
+        return "/projects/%i/" % self.id
 
     class Meta:
         verbose_name = 'проект'

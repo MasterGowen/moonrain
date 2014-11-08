@@ -12,8 +12,8 @@ urlpatterns = patterns('',
                        url(r'^$', projviews.projects_list_all, name='all_projects'),
                        url(r'^projects/$', projviews.projects_list_all, name='all_projects'),
                        url(r'^projects/([0-9]+)/', projviews.detail),
-
-)
+                       url(r'^projects/new/', projviews.new_project),
+                       )
 
 if settings.DEBUG:
     import debug_toolbar

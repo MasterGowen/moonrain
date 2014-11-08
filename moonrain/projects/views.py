@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Project
 from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.context_processors import csrf
+from .forms import ProjectForm
 
 
 def projects_list_all(request):
@@ -63,5 +65,15 @@ def detail(request, project_id):
         return HttpResponse(status=403)
 
 
-
-
+def new_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.author_id = request.user.id
+            project = form.save()
+            return redirect(project)
+    args = {}
+    args.update(csrf(request))
+    args['form'] = ProjectForm()
+    return render(request, 'projects/new.html', args)
