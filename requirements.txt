@@ -17,6 +17,6 @@ lxml==3.3.6
 Jinja2>=2.7
 South==1.0.1
 Pillow==2.6.1
-django-fluent-comments 1.0b1
+django-fluent-comments==1.0b1
 django-crispy-forms>=1.1.1
 pytz==2014.9
