@@ -33,7 +33,6 @@ def video_detail(request, video_id):
     except ObjectDoesNotExist:
         raise Http404
     project = video.project
-
     if project.permission == 'public':
         return render(request, 'videos/video.html', {'video': video})
     elif project.permission == 'for_users' \
@@ -58,7 +57,7 @@ def new_video(request):
     args = {}
     args.update(csrf(request))
     args['form'] = VideoForm()
-    return render(request, 'projects/new.html', args)
+    return render(request, 'videos/new.html', args)
 
 
 class VideoDelete(DeleteView):
@@ -69,4 +68,4 @@ class VideoDelete(DeleteView):
 
 class VideoUpdate(UpdateView):
     model = Video
-    fields = ['name', 'comments', 'permission', 'tags']
+    fields = ['name', 'comments', 'lang', 'tags']
