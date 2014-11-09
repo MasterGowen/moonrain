@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.edit import UpdateView
 from .models import Project
 from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
@@ -86,3 +87,7 @@ def delete_project(request, project_id):
     project_to_delete.delete()
     return HttpResponseRedirect('/projects/')
     #return HttpResponseRedirect('/projects/404')
+
+class ProjectUpdate(UpdateView):
+     model = Project
+     fields = ['name', 'comments', 'permission', 'tags']

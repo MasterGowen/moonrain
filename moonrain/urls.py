@@ -13,7 +13,8 @@ urlpatterns = patterns('',
                        url(r'^projects/$', projviews.projects_list_all, name='all_projects'),
                        url(r'^projects/([0-9]+)/$', projviews.detail),
                        url(r'^projects/new/', projviews.new_project),
-                       url(r'^projects/([0-9]+)/delete/', projviews.delete_project)
+                       url(r'^projects/([0-9]+)/delete/', projviews.delete_project),
+                       url(r'^projects/(?P<pk>\d+)/update/', projviews.ProjectUpdate.as_view()),
                        )
 
 if settings.DEBUG:
