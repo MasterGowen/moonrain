@@ -83,6 +83,7 @@ def new_project(request):
 class ProjectDelete(DeleteView):
     model = Project
     fields = []
+    success_url = '/projects/'
 
 
 class ProjectUpdate(UpdateView):

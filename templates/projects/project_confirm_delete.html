@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 {%block content %}
 {% if project.author_id == user.id or project in user.projects %}
-<form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button class="ui button" type="submit">
-        <i class="close red icon"/>
-        Удалить
-    </button>
-</form>
-{% else %}
+<div class="ui tertiary segment">
+    <h1 class="ui red header">Вы уверены, что хотите удалить проект?</h1>
 
+    <form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <div class="ui teal button">
+            <a href="../">
+                Не удалять
+            </a>
+        </div>
+        <button class="ui button" type="submit">
+            Удалить
+        </button>
+    </form>
+</div>
+{% else %}
 <div class="ui error message">
     <div class="header">
-        Кто вы такие? Я вас не звал!
+        Вы не можете совершить это действие!
     </div>
     <ul class="list">
         <li>Запросить прова на проект.</li>
@@ -20,5 +27,4 @@
     </ul>
 </div>
 {% endif %}
-
 {% endblock %}
