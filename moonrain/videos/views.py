@@ -27,9 +27,9 @@ def video_list(request):
     return render(request, 'videos/index.html', {'videos': videos, 'pages': range(1, (paginator.num_pages + 1))})
 
 
-def video_detail(request, video_id):
+def video_detail(request, pk):
     try:
-        video = Video.objects.get(id=video_id)
+        video = Video.objects.get(pk=pk)
     except ObjectDoesNotExist:
         raise Http404
     project = video.project
@@ -63,7 +63,7 @@ def new_video(request):
 class VideoDelete(DeleteView):
     model = Video
     fields = []
-    success_url = '../'
+    success_url = '../'  # TODO: redirect to project, not to deleted video
 
 
 class VideoUpdate(UpdateView):

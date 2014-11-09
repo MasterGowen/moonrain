@@ -1,3 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="ui segment">
+    <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
+    {% if video.project.author_id == user.id or video.project in user.projects.all %}
+    <div class="ui dropdown">
+        <i class="settings icon"></i>
+        <span class="text">Действия</span>
+        <div class="menu">
+            <div class="item"><a href="update/"><i class="edit icon"></i>Редактировать</a></div>
+            <div class="item"><a href="delete/"><i class="delete icon"></i>Удалить</a></div>
+        </div>
+    </div>
+    {% endif %}
+    <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
+           preload="auto" width="640" height="360" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
+           data-setup="{}">
+        <source src="{{ video.url }}" type='video/mp4'>
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+</div>
 {% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%block content %}
+{% if video.project.author_id == user.id or video.project in user.projects.all %}
+<div class="ui red segment">
+    <h1 class="ui red header">Вы уверены, что хотите удалить видео: </h1>
+    <div class="ui stacked segment">
+        <h3 class="ui red header">{{ video.name }}?</h3>
+    </div>
+
+    <form action="/videos/{{ video.id }}/delete/" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <div class="ui teal button">
+            <a href="../">
+                Не удалять
+            </a>
+        </div>
+        <button class="ui button" type="submit">
+            Удалить
+        </button>
+    </form>
+</div>
+{% else %}
+<div class="ui error message">
+    <div class="header">
+        Вы не можете совершить это действие!
+    </div>
+    <ul class="list">
+        <li>Запросить прова на проект.</li>
+        <li>Обратиться к администратору.</li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -19,7 +19,7 @@
                 создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
             </div>
         </div>
-        {% if project.author_id == user.id or project in user.projects %}
+        {% if project.author_id == user.id or project in user.projects.all %}
         <div class="ui dropdown">
             <i class="settings icon"></i>
             <span class="text">Действия</span>

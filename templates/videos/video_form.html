@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if video.project.author_id == user.id or video.project in user.projects.all %}
+<form action="" method="post">{% csrf_token %}
+    <div class="ui form segment">
+        <div class="ui red segment">
+            <div class="field">
+                <h5>{{ form.name.label_tag }}</h5>
+                <div class="ui left labeled icon input">
+                    {{ form.name }}
+                    <i class="archive icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.comments.label_tag }}</h5>
+                <div class="ui left labeled icon input">
+                    {{ form.comments }}
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.lang.label_tag }}</h5>
+                <div class="ui left labeled icon input">
+                    {{ form.lang }}
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.tags.label_tag }}</h5>
+                <div class="ui left labeled icon input">
+                    {{ form.tags }}
+                    <i class="info letter icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="ui teal button"><a href="../">Не сохранять</a></div>
+        <button class="ui red button" type="submit">Сохранить</button>
+    </div>
+</form>
+{% else %}
+<div class="ui error message">
+    <div class="header">
+        Вы не можете совершить это действие!
+    </div>
+    <ul class="list">
+        <li>Запросить прова на проект.</li>
+        <li>Обратиться к администратору.</li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
