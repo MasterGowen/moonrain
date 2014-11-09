@@ -19,13 +19,14 @@
                 создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
             </div>
         </div>
-        {% if project.author_id == user.id %}
-        <div class="ui top right attached label">
-            <form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
-                <i class=" right close red link icon"></i>
-                {{ form.as_p }}
-                <input type="submit" value="Удалить" />
-            </form>
+        {% if project.author_id == user.id or project in user.projects %}
+        <div class="ui dropdown">
+            <i class="settings icon"></i>
+            <span class="text">Settings</span>
+            <div class="menu">
+                <div class="item"><a href="update/"><i class="edit icon"></i>Редактировать</a></div>
+                <div class="item"><a href="delete/"><i class="delete icon"></i>Удалить</a></div>
+            </div>
         </div>
         {% endif %}
     </div>

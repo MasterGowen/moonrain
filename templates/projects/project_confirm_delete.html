@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
-{% block content %}
+{%block content %}
 {% if project.author_id == user.id or project in user.projects %}
-<form action="" method="post">{% csrf_token %}
+<form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update" />
+    <button class="ui button" type="submit">
+        <i class="close red icon"/>
+        Удалить
+    </button>
 </form>
 {% else %}
+
 <div class="ui error message">
     <div class="header">
         Кто вы такие? Я вас не звал!
@@ -16,4 +20,5 @@
     </ul>
 </div>
 {% endif %}
+
 {% endblock %}

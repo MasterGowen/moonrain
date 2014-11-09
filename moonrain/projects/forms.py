@@ -11,9 +11,3 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'comments': RedactorWidget(editor_options={'lang': 'ru'})
         }
-
-
-class DeleteProject(forms.ModelForm):
-    class Meta:
-        model = Project
-        field = []

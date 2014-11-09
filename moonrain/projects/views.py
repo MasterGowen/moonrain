@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic.edit import UpdateView
+from django.shortcuts import render, redirect
+from django.views.generic.edit import UpdateView, DeleteView
 from .models import Project
 from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.context_processors import csrf
-from .forms import ProjectForm, DeleteProject
+from .forms import ProjectForm
 
 
 def projects_list_all(request):
@@ -80,14 +80,11 @@ def new_project(request):
     return render(request, 'projects/new.html', args)
 
 
-def delete_project(request, project_id):
-    project_to_delete = get_object_or_404(Project, id=project_id)
-    form = DeleteProject(request.POST)
-        #if form.is_valid():
-    project_to_delete.delete()
-    return HttpResponseRedirect('/projects/')
-    #return HttpResponseRedirect('/projects/404')
+class ProjectDelete(DeleteView):
+    model = Project
+    fields = []
+
 
 class ProjectUpdate(UpdateView):
-     model = Project
-     fields = ['name', 'comments', 'permission', 'tags']
+    model = Project
+    fields = ['name', 'comments', 'permission', 'tags']
