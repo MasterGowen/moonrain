@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {%block content %}
 {% if project.author_id == user.id or project in user.projects %}
-<div class="ui tertiary segment">
-    <h1 class="ui red header">Вы уверены, что хотите удалить проект?</h1>
+<div class="ui red segment">
+    <h1 class="ui red header">Вы уверены, что хотите удалить проект: </h1>
+    <div class="ui stacked segment">
+        <h3 class="ui red header">{{ project.name }}?</h3>
+    </div>
 
     <form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
         {{ form.as_p }}

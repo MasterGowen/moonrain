@@ -3,7 +3,7 @@
 {% if project.author_id == user.id or project in user.projects %}
 <form action="" method="post">{% csrf_token %}
     <div class="ui form segment">
-        <div class="ui teal segment">
+        <div class="ui red segment">
             <div class="field">
                 <h5>{{ form.name.label_tag }}</h5>
                 <div class="ui left labeled icon input">

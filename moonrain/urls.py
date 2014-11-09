@@ -8,13 +8,17 @@ import moonrain.views
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^videos/', vidviews.video_list),
+                       url(r'^videos/$', vidviews.video_list),
+                       url(r'^videos/(?P<video_id>\d+)/$', vidviews.video_detail),
+                       url(r'^videos/(?P<video_id>\d+)/delete/$', vidviews.VideoDelete.as_view()),
+                       url(r'^videos/(?P<video_id>\d+)/update/$', vidviews.VideoUpdate.as_view()),
+                       url(r'^videos/new/$', vidviews.new_video),
                        url(r'^$', projviews.projects_list_all, name='all_projects'),
                        url(r'^projects/$', projviews.projects_list_all, name='all_projects'),
-                       url(r'^projects/([0-9]+)/$', projviews.detail),
-                       url(r'^projects/new/', projviews.new_project),
-                       url(r'^projects/(?P<pk>\d+)/delete/', projviews.ProjectDelete.as_view()),
-                       url(r'^projects/(?P<pk>\d+)/update/', projviews.ProjectUpdate.as_view()),
+                       url(r'^projects/(?P<project_id>\d+)/$', projviews.detail),
+                       url(r'^projects/new/$', projviews.new_project),
+                       url(r'^projects/(?P<pk>\d+)/delete/$', projviews.ProjectDelete.as_view()),
+                       url(r'^projects/(?P<pk>\d+)/update/$', projviews.ProjectUpdate.as_view()),
                        )
 
 if settings.DEBUG:
@@ -34,7 +38,7 @@ urlpatterns += patterns('',
 #comments
 
 urlpatterns += patterns('',
-    url(r'^project/comments/', include('fluent_comments.urls')),
+                        url(r'^project/comments/', include('fluent_comments.urls')),
 )
 
 handler403 = 'views.moon_403'

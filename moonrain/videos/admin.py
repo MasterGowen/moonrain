@@ -1,5 +1,6 @@
 from django.contrib import admin
-from moonrain.videos.models import Video, VideoAdmin
+from moonrain.videos.forms import Video, VideoAdmin
+
 
 class AuthorAdmin(admin.ModelAdmin):
     pass

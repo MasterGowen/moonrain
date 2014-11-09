@@ -3,7 +3,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from .models import Project
 from ..videos.models import Video
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.context_processors import csrf
@@ -88,4 +88,4 @@ class ProjectDelete(DeleteView):
 
 class ProjectUpdate(UpdateView):
     model = Project
-    fields = ['name', 'comments', 'permission', 'tags']
+    fields = ['name', 'comments', 'lang', 'tags']

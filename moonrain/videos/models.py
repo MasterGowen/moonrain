@@ -1,13 +1,10 @@
 from django.db import models
-from django.contrib import admin
 from django.conf import settings
-from django.forms import ModelForm
 from django.utils.html import format_html
-from suit_redactor.widgets import RedactorWidget
 from durationfield.db.models.fields.duration import DurationField
 from taggit.managers import TaggableManager
-
 from moonrain.projects.models import Project
+
 
 class Video(models.Model):
     '''
@@ -51,16 +48,3 @@ class Video(models.Model):
 
     def get_absolute_url(self):
         return "/videos/%i/" % self.id
-
-
-class VideoForm(ModelForm):
-    class Meta:
-        widgets = {
-            'comments': RedactorWidget(editor_options={'lang': 'ru'})
-        }
-
-
-class VideoAdmin(admin.ModelAdmin):
-    form = VideoForm
-    list_display = ('name', 'project', 'date', 'url', 'author', 'resolution', 'duration', 'Комментарий')
-    readonly_fields = ('parent',)
