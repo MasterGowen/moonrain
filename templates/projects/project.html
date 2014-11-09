@@ -3,22 +3,32 @@
 <div class="container">
 
     {% block content %}
-    <div class="ui huge header">
-        {{ project.name }}
-        {% if user.is_authenticated %}
-        {% if project.permission == 'public' %}
-        <div class="ui green label">{{ project.get_permission_display }}</div>
-        {% elif project.permission == 'for_users' %}
-        <div class="ui blue label">{{ project.get_permission_display }}</div>
-        {% elif project.permission == 'for_staff' %}
-        <div class="ui red label">{{ project.get_permission_display }}</div>
-        {% endif %}
-        {% endif %}
-        <div class="sub header">
-            создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
+    <div class="ui segment">
+        <div class="ui huge header">
+            {{ project.name }}
+            {% if user.is_authenticated %}
+            {% if project.permission == 'public' %}
+            <div class="ui green label">{{ project.get_permission_display }}</div>
+            {% elif project.permission == 'for_users' %}
+            <div class="ui blue label">{{ project.get_permission_display }}</div>
+            {% elif project.permission == 'for_staff' %}
+            <div class="ui red label">{{ project.get_permission_display }}</div>
+            {% endif %}
+            {% endif %}
+            <div class="sub header">
+                создан {{ project.date|date:"SHORT_DATE_FORMAT" }}
+            </div>
         </div>
+        {% if project.author_id == user.id %}
+        <div class="ui top right attached label">
+            <form action="/projects/{{ project.id }}/delete/" method="post">{% csrf_token %}
+                <i class=" right close red link icon"></i>
+                {{ form.as_p }}
+                <input type="submit" value="Удалить" />
+            </form>
+        </div>
+        {% endif %}
     </div>
-
     {% if project.comments %}
     <div class="ui icon message" id="comments">
         <a class="ui right teal corner label popup-show">
