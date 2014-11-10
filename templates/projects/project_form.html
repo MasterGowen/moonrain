@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if project.author_id == user.id or project in user.projects %}
+{% if project.author_id == user.id or project in user.projects.all %}
 <form action="" method="post">{% csrf_token %}
     <div class="ui form segment">
         <div class="ui red segment">

@@ -88,4 +88,4 @@ class ProjectDelete(DeleteView):
 
 class ProjectUpdate(UpdateView):
     model = Project
-    fields = ['name', 'comments', 'lang', 'tags']
+    fields = ['name', 'comments', 'tags', 'permission']
