@@ -68,4 +68,4 @@ class VideoDelete(DeleteView):
 
 class VideoUpdate(UpdateView):
     model = Video
-    fields = ['name', 'comments', 'lang', 'tags']
+    fields = ['name', 'videofile', 'comments', 'lang', 'tags']

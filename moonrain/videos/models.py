@@ -13,6 +13,8 @@ class Video(models.Model):
 
     parent = models.IntegerField("ID родителя", null=True, default=None)
 
+    videofile = models.FileField("Видеофайл:", null=True, default=None, upload_to='data/%Y/%m')
+
     #VIDEO
     name = models.CharField("Название видео:", max_length=64)
     url = models.URLField("Ссылка:", max_length=256, blank=True, null=True)

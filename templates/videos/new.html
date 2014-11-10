@@ -1,3 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<div class="ui error message">
+    <div class="header">Error message</div>
+</div>
+{% endfor %}
+{% endif %}
+<div class="container">
+    <h2 class="ui header">Добавление видео:</h2>
+</div>
+
+<form method="post" action="{% url 'moonrain.videos.views.new_video' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="ui blue submit button" type="submit" value="new_project">
+        <i class="archive icon"></i>
+        Создать
+    </button>
+</form>
 {% endblock %}

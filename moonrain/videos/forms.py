@@ -7,7 +7,7 @@ from django.contrib import admin
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ['name', 'comments', 'lang', 'tags']
+        fields = ['name', 'videofile', 'comments', 'lang', 'tags']
         widgets = {
             'comments': RedactorWidget(editor_options={'lang': 'ru'})
         }
