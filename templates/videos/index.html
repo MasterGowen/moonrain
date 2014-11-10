@@ -12,7 +12,18 @@
         </video>
     </div>
     {% endfor %}
+
+    {% if not videos %}
+    <br />
+    <div class="ui center aligned medium header">
+        Ни одного видео ещё не добавлено.
+    </div>
+    <div class="ui horizontal icon divider">
+        <i class="square frown icon"></i>
+    </div>
+    {% endif %}
 </div>
+
 {% if videos.paginator.num_pages > 1 %}
 <div class="ui borderless pagination menu">
     {% if videos.has_previous %}

@@ -38,27 +38,33 @@
     </article>
 
     {% empty %}
-    <p>Нет доступных проектов.</p>
+    <br />
+    <div class="ui center aligned medium header">
+        Ни один проект ещё не опубликован.
+    </div>
+    <div class="ui horizontal icon divider">
+        <i class="square frown icon"></i>
+    </div>
     {% endfor %}
 
-{% if projects.paginator.num_pages > 1 %}
-<div class="ui borderless pagination menu">
-    {% if projects.has_previous %}
-    <a class="item" href="?page={{ projects.previous_page_number }}">
-        <i class="left arrow icon"></i> Предыдущая
-    </a>
+    {% if projects.paginator.num_pages > 1 %}
+    <div class="ui borderless pagination menu">
+        {% if projects.has_previous %}
+        <a class="item" href="?page={{ projects.previous_page_number }}">
+            <i class="left arrow icon"></i> Предыдущая
+        </a>
+        {% endif %}
+
+        {% for page in pages %}
+        <a class="item" href="?page={{ page }}">{{ page }}</a>
+        {% endfor %}
+
+        {% if projects.has_next %}
+        <a class="item" href="?page={{ projects.next_page_number }}">
+            Следующая <i class="icon right arrow"></i>
+        </a>
+        {% endif %}
+    </div>
     {% endif %}
 
-    {% for page in pages %}
-    <a class="item" href="?page={{ page }}">{{ page }}</a>
-    {% endfor %}
-
-    {% if projects.has_next %}
-    <a class="item" href="?page={{ projects.next_page_number }}">
-        Следующая <i class="icon right arrow"></i>
-    </a>
-    {% endif %}
-</div>
-{% endif %}
-
-{% endblock %}
+    {% endblock %}

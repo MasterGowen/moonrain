@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%block content %}
-{% if project.author_id == user.id or project in user.projects %}
+{% if project.author_id == user.id or project in user.projects.all %}
 <div class="ui red segment">
     <h1 class="ui red header">Вы уверены, что хотите удалить проект: </h1>
     <div class="ui stacked segment">
