@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DEBUG_PANEL = False
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'debug_toolbar.apps.DebugToolbarConfig',
     'taggit',
     'suit_redactor',
     'django_jinja',
@@ -67,7 +67,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 SOUTH_MIGRATION_MODULES = {
@@ -78,6 +77,14 @@ TEMPLATE_LOADERS = (
     'django_jinja.loaders.AppLoader',
     'django_jinja.loaders.FileSystemLoader',
 )
+
+if DEBUG_PANEL is True:
+    INSTALLED_APPS += (
+        'debug_toolbar.apps.DebugToolbarConfig',
+    )
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/login/'
