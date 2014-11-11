@@ -40,13 +40,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'debug_toolbar.apps.DebugToolbarConfig',
+    'debug_toolbar.apps.DebugToolbarConfig',
     'taggit',
     'suit_redactor',
     'django_jinja',
     'django_extensions',
     'compressor',
-    # 'autofixture', # For testing
+    'autofixture',  # For testing
 
     'moonrain.videos',
     'moonrain.projects',
@@ -67,7 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 SOUTH_MIGRATION_MODULES = {
