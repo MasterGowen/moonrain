@@ -1,24 +1,54 @@
 from django.db import models
 from django.contrib import admin
 from os import urandom
-from base64 import b64encode
+import hashlib
 
 
-def randstring():
+def api_key():
 
-    key = b64encode(urandom(32)).decode('utf-8')
+    key = hashlib.md5(urandom(128)).hexdigest()
     return key[:31]
 
 
-class Server(models.Model):
+class Encoder(models.Model):
 
     name = models.CharField('Название:', max_length=255)
-    api_key = models.CharField('Ключ:', max_length=32, unique=True, default=randstring())
+    description = models.TextField('Описание:', null=True, blank=True)
+    api_key = models.CharField('Ключ:', max_length=32, unique=True, default=api_key)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'кодировщик'
+        verbose_name_plural = 'кодировщики'
 
 
-class ServerAdmin(admin.ModelAdmin):
+class Client(models.Model):
 
-    list_display = ('name', 'api_key')
+    name = models.CharField('Название:', max_length=255)
+    description = models.TextField('Описание:', null=True, blank=True)
+    api_key = models.CharField('Ключ:', max_length=32, unique=True, default=api_key)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'клиент'
+        verbose_name_plural = 'клиенты'
+
+
+class EncoderAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'api_key', 'description')
     readonly_fields = ('api_key',)
 
-admin.site.register(Server, ServerAdmin)
+
+class ClientAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'api_key', 'description')
+    readonly_fields = ('api_key',)
+
+
+admin.site.register(Encoder, EncoderAdmin)
+admin.site.register(Client, ClientAdmin)
