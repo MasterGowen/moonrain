@@ -56,6 +56,8 @@ target/
 moonrain/accounts/migrations/
 moonrain/projects/migrations/
 moonrain/videos/migrations/
+moonrain/comments/migrations/
+moonrain/api/migrations/
 images/*
 db.sqlite3
 .idea/

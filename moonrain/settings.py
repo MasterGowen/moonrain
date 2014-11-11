@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'moonrain.videos',
     'moonrain.projects',
     'moonrain.accounts',
+    'moonrain.api',
 
     # Comments
     'fluent_comments',
