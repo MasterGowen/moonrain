@@ -69,7 +69,7 @@ def new_video(request):
 class VideoDelete(DeleteView):
     model = Video
     fields = []
-    success_url = '../'  # TODO: redirect to project, not to deleted video
+    success_url = '/videos'
 
 
 class VideoUpdate(UpdateView):

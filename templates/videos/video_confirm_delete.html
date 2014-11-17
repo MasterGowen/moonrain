@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%block content %}
-{% if video.project.author_id == user.id or video.project in user.projects.all %}
+{% if video.project.author_id == user.id or video.project in user.projects.all or video.author == user %}
 <div class="ui red segment">
     <h1 class="ui red header">Вы уверены, что хотите удалить видео: </h1>
     <div class="ui stacked segment">

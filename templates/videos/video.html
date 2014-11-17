@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="ui segment">
+<section class="ui segment">
     <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
-    {% if video.project.author_id == user.id or video.project in user.projects.all %}
+    {% if video.project.author_id == user.id or video.project in user.projects.all or video.author == user %}
     <div class="ui dropdown">
         <i class="settings icon"></i>
         <span class="text">Действия</span>
@@ -18,5 +18,5 @@
         <source src="{{ video.url }}" type='video/mp4'>
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
     </video>
-</div>
+</section>
 {% endblock %}
