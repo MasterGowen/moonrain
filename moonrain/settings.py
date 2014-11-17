@@ -147,9 +147,7 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates/'),
 )
-MEDIA_ROOT = (
-    os.path.join(BASE_DIR, 'data'),
-)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data')
 MEDIA_URL = '/data/'
 
 #Jinja

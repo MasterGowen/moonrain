@@ -20,7 +20,7 @@ class Video(models.Model):
     url = models.URLField("Ссылка:", max_length=256, blank=True, null=True)
     date = models.DateTimeField("Дата загрузки:", blank=True, auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, null=True)
     resolution = models.CharField("Разрешение:", max_length=12, blank=True)
     vcodec = models.CharField("Видеокодек:", max_length=32, blank=True)
     aspect = models.CharField("Соотношение сторон:", max_length=8, blank=True)
