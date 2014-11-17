@@ -62,4 +62,5 @@ images/*
 db.sqlite3
 .idea/
 _autofixture/
+data/
 
