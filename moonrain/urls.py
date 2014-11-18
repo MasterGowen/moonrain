@@ -19,6 +19,7 @@ urlpatterns = patterns('',
                        url(r'^projects/new/$', projviews.new_project),
                        url(r'^projects/(?P<pk>\d+)/delete/$', projviews.ProjectDelete.as_view()),
                        url(r'^projects/(?P<pk>\d+)/update/$', projviews.ProjectUpdate.as_view()),
+                       url(r'^projects/(?P<pk>\d+)/add/$', vidviews.add_video),
                        )
 
 if settings.DEBUG:

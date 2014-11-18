@@ -7,6 +7,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.core.context_processors import csrf
 from .models import Video
 from .forms import VideoForm
+from ..projects.models import Project
 
 
 @login_required
@@ -58,6 +59,22 @@ def new_video(request):
         if form.is_valid():
             video = form.save(commit=False)
             video.author = request.user
+            video = form.save()
+            return redirect(video)
+    args = {}
+    args.update(csrf(request))
+    args['form'] = VideoForm()
+    return render(request, 'videos/new.html', args)
+
+
+def add_video(request, pk):
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            video = form.save(commit=False)
+            video.author = request.user
+            print(Project.objects.filter(pk=pk))
+            video.project = Project.objects.filter(pk=pk)
             video = form.save()
             return redirect(video)
     args = {}
