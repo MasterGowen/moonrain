@@ -7,7 +7,7 @@ import hashlib
 def api_key():
 
     key = hashlib.md5(urandom(128)).hexdigest()
-    return key[:31]
+    return key
 
 
 class Encoder(models.Model):

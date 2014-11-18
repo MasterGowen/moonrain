@@ -39,7 +39,13 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
                         url(r'^project/comments/', include('fluent_comments.urls')),
-)
+                        )
+
+# media FOR TESTING!
+
+urlpatterns += patterns('',
+                        url(r'^data/(?P<path>.*)$', 'django.views.static.serve', {
+                            'document_root': settings.MEDIA_ROOT}))
 
 handler403 = 'views.moon_403'
 handler404 = 'moon_404'
