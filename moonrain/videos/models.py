@@ -4,14 +4,25 @@ from django.utils.html import format_html
 from durationfield.db.models.fields.duration import DurationField
 from taggit.managers import TaggableManager
 from moonrain.projects.models import Project
+import os
+import uuid
 from os import urandom
 import hashlib
+import time
 
 
 def key():
 
     key = hashlib.md5(urandom(128)).hexdigest()
     return key
+
+
+def generate_new_filename(instance, filename):
+    f, ext = os.path.splitext(filename)
+    filename = '%s%s' % (uuid.uuid4().hex, ext)
+    fullpath = time.strftime('%Y/%m') + '/' + key() + '/' + filename
+    return fullpath
+
 
 
 class Video(models.Model):
@@ -21,7 +32,7 @@ class Video(models.Model):
 
     parent = models.IntegerField("ID родителя", null=True, default=None)
 
-    videofile = models.FileField("Видеофайл:", null=True, default=None, upload_to='%Y/%m/' + key())
+    videofile = models.FileField("Видеофайл:", null=True, default=None, upload_to=generate_new_filename)
 
     #VIDEO
     name = models.CharField("Название видео:", max_length=64)
