@@ -20,7 +20,7 @@ videojs.addLanguage("ru",{
  "Chapters": "Главы",
  "You aborted the video playback": "Вы прервали воспроизведение видео",
  "A network error caused the video download to fail part-way.": "Ошибка сети вызвала сбой во время загрузки видео.",
- "The video could not be loaded, either because the server or network failed or because the format is not supported.": "Невозможно загрузить видео из-за сетевого или серверного сбоя либо формат не поддерживается.",
+ "The video could not be loaded, either because the server or network failed or because the format is not supported.": "Формат загруженного файла не поддерживается, дождитесь завершения обработки.",
  "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "Воспроизведение видео было приостановлено из-за повреждения либо в связи с тем, что видео использует функции, неподдерживаемые вашим браузером.",
  "No compatible source was found for this video.": "Совместимые источники для этого видео отсутствуют."
 });

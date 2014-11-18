@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if video.project.author_id == user.id or video.project in user.projects.all %}
+{% if video.project.author_id == user.id or video.project in user.projects.all or video.author == user %}
 <form action="" method="post">{% csrf_token %}
     <div class="ui form segment">
         <div class="ui red segment">
@@ -22,6 +22,12 @@
                     <div class="ui corner label">
                         <i class="icon asterisk"></i>
                     </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.videofile.label_tag }}</h5>
+                    {{ form.videofile }}
                 </div>
             </div>
 
