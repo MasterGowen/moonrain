@@ -59,7 +59,7 @@ class Video(models.Model):
 
     comments = models.TextField("Описание:", blank=True)
     tags = TaggableManager(blank=True)
-
+    encoded = models.BooleanField("Перекодирован:", default=False)
     def Комментарий(self):
         return format_html(self.comments)
 
