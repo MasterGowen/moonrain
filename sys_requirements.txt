@@ -1,0 +1,2 @@
+python==3.4
+mediainfo>=0.7.71 # CLI if Windows
