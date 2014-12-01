@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils.html import format_html
-from durationfield.db.models.fields.duration import DurationField
 from taggit.managers import TaggableManager
 from moonrain.projects.models import Project
 import os
@@ -51,13 +50,13 @@ class Video(models.Model):
     colorspace = models.CharField("Цветовое пространство:", max_length=32, blank=True, null=True)
     bitdepth = models.IntegerField("Глубина цвета:", max_length=4, blank=True, null=True)
     vbitrate = models.CharField("Битрейт видео:", max_length=16, blank=True, null=True)
-    duration = DurationField("Продолжительность:", max_length=255, blank=True, null=True)
+    duration = models.CharField("Продолжительность:", max_length=255, blank=True, null=True)
     lang = models.CharField("Язык видео:", max_length=32, blank=True, null=True)
 
     #AUDIO
     audio = models.BooleanField("Наличие аудио:", default=True)
-    acodec = models.CharField("Аудиокодек:", max_length=32, blank=True)
-    abitrate = models.CharField("Битрейт аудио:", max_length=16, blank=True)
+    acodec = models.CharField("Аудиокодек:", max_length=32, blank=True, null=True)
+    abitrate = models.CharField("Битрейт аудио:", max_length=16, blank=True, null=True)
     asamplingrate = models.IntegerField("Частота дискретизации:", max_length=8, blank=True, null=True)
     abitdepth = models.IntegerField("Глубина дискретизации:", max_length=8, blank=True, null=True)
 

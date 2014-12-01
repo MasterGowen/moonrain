@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load toduration %}
 <section class="ui segment">
     <div class="ui vertical segment">
         <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
@@ -33,10 +34,19 @@
                 </h2>
                 <table class="ui blue compact table">
                     <tbody>
+
+                    {% if video.duration != None and video.duration != '' %}
+                    <tr>
+                        <td>Продолжительность:</td>
+                        <td>{{ video.duration|toduration }}</td>
+                    </tr>
+                    {% endif %}
+
+
                     {% if video.width != None %}
                     <tr>
                         <td>Ширина:</td>
-                        <td>{{ video.width }}</td>
+                        <td>{{ video.width }} px</td>
                     </tr>
                     {% endif %}
 
@@ -44,7 +54,7 @@
                     {% if video.height != None %}
                     <tr>
                         <td>Высота:</td>
-                        <td>{{ video.height }}</td>
+                        <td>{{ video.height }} px</td>
                     </tr>
                     {% endif %}
 
@@ -84,7 +94,7 @@
                     {% if video.framerate != None %}
                     <tr>
                         <td>Частота кадров:</td>
-                        <td>{{ video.framerate }}</td>
+                        <td>{{ video.framerate|floatformat }} frames/second</td>
                     </tr>
                     {% endif %}
 
@@ -92,7 +102,7 @@
                     {% if video.colorspace != None %}
                     <tr>
                         <td>Цветовое пространство:</td>
-                        <td>{{ video.colorspace }}</td>
+                        <td>{{ video.colorspace }} bit</td>
                     </tr>
                     {% endif %}
 
@@ -100,7 +110,7 @@
                     {% if video.bitdepth != None %}
                     <tr>
                         <td>Глубина цвета:</td>
-                        <td>{{ video.bitdepth }}</td>
+                        <td>{{ video.bitdepth }} bit</td>
                     </tr>
                     {% endif %}
 
@@ -108,7 +118,7 @@
                     {% if video.vbitrate != None %}
                     <tr>
                         <td>Битрейт видео:</td>
-                        <td>{{ video.vbitrate }}</td>
+                        <td>{{ video.vbitrate }} bits/second</td>
                     </tr>
                     {% endif %}
 
@@ -124,7 +134,7 @@
                     {% if video.abitrate != None %}
                     <tr>
                         <td>Битрейт аудио:</td>
-                        <td>{{ video.abitrate }}</td>
+                        <td>{{ video.abitrate }} bits/second</td>
                     </tr>
                     {% endif %}
 
@@ -132,7 +142,7 @@
                     {% if video.asamplingrate != None %}
                     <tr>
                         <td>Частота дискретизации:</td>
-                        <td>{{ video.asamplingrate }}</td>
+                        <td>{{ video.asamplingrate }} Hz</td>
                     </tr>
                     {% endif %}
 
@@ -140,7 +150,7 @@
                     {% if video.abitdepth != None %}
                     <tr>
                         <td>Глубина квантования:</td>
-                        <td>{{ video.abitdepth }}</td>
+                        <td>{{ video.abitdepth }} bit</td>
                     </tr>
                     {% endif %}
 
