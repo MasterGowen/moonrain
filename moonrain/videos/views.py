@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -5,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse
 from django.views.generic.edit import UpdateView, DeleteView
 from django.core.context_processors import csrf
+from pymediainfo import MediaInfo
 from .models import Video
 from .forms import VideoForm
 from ..projects.models import Project
@@ -60,6 +63,18 @@ def new_video(request):
             video = form.save(commit=False)
             video.author = request.user
             video = form.save()
+
+            def analysis(video):
+                mediainfoobject = MediaInfo.parse(str(settings.BASE_DIR) + str(os.path.normpath(video.videofile.url)))
+                for track in mediainfoobject.tracks:
+                    if track.track_type == 'Video':
+                        video.width = track.width
+                        video.height = track.height
+                        video.resolution = str(video.width) + 'x' + str(video.height)
+                        video.save()
+                return video
+            
+            analysis(video)
             return redirect(video)
     args = {}
     args.update(csrf(request))
