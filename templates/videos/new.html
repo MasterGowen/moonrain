@@ -13,7 +13,52 @@
 
 <form method="post" action="{% url 'moonrain.videos.views.new_video' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="ui form segment">
+        <div class="ui teal segment">
+            <div class="field">
+                <h5>{{ form.name.label_tag }}</h5>
+                <div class="ui corner labeled input left icon">
+                    {{ form.name }}
+                    <i class="archive icon"></i>
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.videofile.label_tag }}</h5>
+                {{ form.videofile }}
+            </div>
+
+            <div class="ui divider"></div>
+
+            <div class="field">
+                <h5>{{ form.comments.label_tag }}</h5>
+                <div class="ui left labeled icon input">
+                    {{ form.comments }}
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.lang.label_tag }}</h5>
+                <div class="ui input">
+                    {{ form.lang }}
+                </div>
+            </div>
+
+            <div class="field">
+                <h5>{{ form.tags.label_tag }}</h5>
+                <div class="ui input">
+                    {{ form.tags }}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <button class="ui blue submit button" type="submit" value="new_video">
         <i class="archive icon"></i>
         Создать

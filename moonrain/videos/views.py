@@ -13,6 +13,34 @@ from .forms import VideoForm
 from ..projects.models import Project
 
 
+def analysis(video):
+    mediainfoobject = MediaInfo.parse(str(settings.BASE_DIR) + str(os.path.normpath(video.videofile.url)))
+    for track in mediainfoobject.tracks:
+        if track.track_type == 'General':
+            video.format = track.format
+            video.filesize = track.file_size
+            video.duration = track.duration
+        if track.track_type == 'Video':
+            video.width = track.width
+            video.height = track.height
+            video.resolution = str(video.width) + 'x' + str(video.height)
+            video.vcodec = track.codec
+            video.aspect = track.display_aspect_ratio
+            video.framerate = track.frame_rate
+            video.colorspace = track.color_space
+            video.bitdepth = track.bit_depth
+            video.vbitrate = track.bit_rate
+        if track.track_type == 'Audio':
+            video.acodec = track.format
+            video.abitrate = track.bit_rate
+            video.asamplingrate = track.asampling_rate
+            video.abitdepth = track.bit_depth
+            video.channels = track.channel_s
+
+            video.save()
+    return video
+
+
 @login_required
 def video_list(request):
 
@@ -63,34 +91,6 @@ def new_video(request):
             video = form.save(commit=False)
             video.author = request.user
             video = form.save()
-
-            def analysis(video):
-                mediainfoobject = MediaInfo.parse(str(settings.BASE_DIR) + str(os.path.normpath(video.videofile.url)))
-                for track in mediainfoobject.tracks:
-                    if track.track_type == 'General':
-                        video.format = track.format
-                        video.filesize = track.filesize
-                        video.duration = track.duration
-                    if track.track_type == 'Video':
-                        video.width = track.width
-                        video.height = track.height
-                        video.resolution = str(video.width) + 'x' + str(video.height)
-                        video.vcodec = track.codec
-                        video.aspect = track.display_aspect_ratio
-                        video.framerate = track.frame_rate
-                        video.colorspace = track.color_space
-                        video.bitdepth = track.bit_depth
-                        video.vbitrate = track.bit_rate
-                    if track.track_type == 'Audio':
-                        video.acodec = track.format
-                        video.abitrate = track.bit_rate
-                        video.asamplingrate = track.asampling_rate
-                        video.abitdepth = track.bit_depth
-                        video.channels = track.channel_s
-
-                        video.save()
-                return video
-
             analysis(video)
             return redirect(video)
     args = {}
@@ -105,9 +105,10 @@ def add_video(request, pk):
         if form.is_valid():
             video = form.save(commit=False)
             video.author = request.user
-            print(Project.objects.filter(pk=pk))
-            video.project = Project.objects.filter(pk=pk)
-            video = form.save()
+            video.project = Project.objects.get(pk=pk)
+            if video.project is not None:
+                video = form.save()
+                analysis(video)
             return redirect(video)
     args = {}
     args.update(csrf(request))

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load toduration %}
+{% load bitrate %}
 <section class="ui segment">
     <div class="ui vertical segment">
         <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
@@ -32,13 +33,20 @@
                 <h2 class="header">
                     Техническая информация:
                 </h2>
-                <table class="ui blue compact table">
+                <table class="ui inverted table">
                     <tbody>
 
                     {% if video.duration != None and video.duration != '' %}
                     <tr>
                         <td>Продолжительность:</td>
                         <td>{{ video.duration|toduration }}</td>
+                    </tr>
+                    {% endif %}
+
+                    {% if video.filesize != None %}
+                    <tr>
+                        <td>Размер файла:</td>
+                        <td>{{ video.filesize|filesizeformat }}</td>
                     </tr>
                     {% endif %}
 
@@ -118,7 +126,7 @@
                     {% if video.vbitrate != None %}
                     <tr>
                         <td>Битрейт видео:</td>
-                        <td>{{ video.vbitrate }} bits/second</td>
+                        <td>{{ video.vbitrate|bitrate }}</td>
                     </tr>
                     {% endif %}
 
@@ -134,7 +142,7 @@
                     {% if video.abitrate != None %}
                     <tr>
                         <td>Битрейт аудио:</td>
-                        <td>{{ video.abitrate }} bits/second</td>
+                        <td>{{ video.abitrate|bitrate }}</td>
                     </tr>
                     {% endif %}
 
