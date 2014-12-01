@@ -1,152 +1,168 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="ui segment">
-    <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
-    {% if video.project.author_id == user.id or video.project in user.projects.all or video.author == user %}
-    <div class="ui dropdown">
-        <i class="settings icon"></i>
-        <span class="text">Действия</span>
-        <div class="menu">
-            <div class="item"><a href="update/"><i class="edit icon"></i>Редактировать</a></div>
-            <div class="item"><a href="delete/"><i class="delete icon"></i>Удалить</a></div>
+    <div class="ui vertical segment">
+        <h2>{{ video.name }} <a href="/videos/{{ video.id }}/" class="ui red label">Кодирование&nbsp;не&nbsp;завершено</a></h2>
+        {% if video.project.author_id == user.id or video.project in user.projects.all or video.author == user %}
+        <div class="ui dropdown">
+            <i class="settings icon"></i>
+            <span class="text">Действия</span>
+            <div class="menu">
+                <div class="item"><a href="update/"><i class="edit icon"></i>Редактировать</a></div>
+                <div class="item"><a href="delete/"><i class="delete icon"></i>Удалить</a></div>
+            </div>
         </div>
+        {% endif %}
+        <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
+               preload="auto" width="640" height="360" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
+               data-setup="{}">
+            <source src="{{ video.videofile.url }}" type='video/mp4'>
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
     </div>
-    {% endif %}
-    <video id="{{ video.name }}" class="video-js vjs-default-skin vjs-big-play-centered" controls
-           preload="auto" width="640" height="360" poster="{% if video.poster %}{{ video.poster }}{% endif %}"
-           data-setup="{}">
-        <source src="{{ video.videofile.url }}" type='video/mp4'>
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video>
-    <table class="ui blue compact table">
-        <thead>
-        <tr>
-            <th>Свойство</th>
-            <th>Значение</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if video.width != None %}
-        <tr>
-            <td>Ширина:</td>
-            <td>{{ video.width }}</td>
-        </tr>
-        {% endif %}
+    <div class="ui vertical segment">
+        <div class="ui label">
+            <a id="show-tech-modal">Техническая информация</a>
+        </div>
+
+        <div class="ui basic modal">
+            <i class="close icon"></i>
+            <div class="ui inverted segment">
+                <h2 class="header">
+                    Техническая информация:
+                </h2>
+                <table class="ui blue compact table">
+                    <tbody>
+                    {% if video.width != None %}
+                    <tr>
+                        <td>Ширина:</td>
+                        <td>{{ video.width }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.height != None %}
-        <tr>
-            <td>Высота:</td>
-            <td>{{ video.height }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.height != None %}
+                    <tr>
+                        <td>Высота:</td>
+                        <td>{{ video.height }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.resolution != None %}
-        <tr>
-            <td>Размеры:</td>
-            <td>{{ video.resolution }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.resolution != None %}
+                    <tr>
+                        <td>Размеры:</td>
+                        <td>{{ video.resolution }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.format != None %}
-        <tr>
-            <td>Формат:</td>
-            <td>{{ video.format }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.format != None %}
+                    <tr>
+                        <td>Формат:</td>
+                        <td>{{ video.format }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.vcodec != None %}
-        <tr>
-            <td>Кодек:</td>
-            <td>{{ video.vcodec }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.vcodec != None %}
+                    <tr>
+                        <td>Кодек:</td>
+                        <td>{{ video.vcodec }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.aspect != None %}
-        <tr>
-            <td>Пропорции:</td>
-            <td>{{ video.aspect }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.aspect != None %}
+                    <tr>
+                        <td>Пропорции:</td>
+                        <td>{{ video.aspect }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.framerate != None %}
-        <tr>
-            <td>Частота кадров:</td>
-            <td>{{ video.framerate }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.framerate != None %}
+                    <tr>
+                        <td>Частота кадров:</td>
+                        <td>{{ video.framerate }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.colorspace != None %}
-        <tr>
-            <td>Цветовое пространство:</td>
-            <td>{{ video.colorspace }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.colorspace != None %}
+                    <tr>
+                        <td>Цветовое пространство:</td>
+                        <td>{{ video.colorspace }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.bitdepth != None %}
-        <tr>
-            <td>Глубина цвета:</td>
-            <td>{{ video.bitdepth }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.bitdepth != None %}
+                    <tr>
+                        <td>Глубина цвета:</td>
+                        <td>{{ video.bitdepth }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.vbitrate != None %}
-        <tr>
-            <td>Битрейт видео:</td>
-            <td>{{ video.vbitrate }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.vbitrate != None %}
+                    <tr>
+                        <td>Битрейт видео:</td>
+                        <td>{{ video.vbitrate }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.acodec != None %}
-        <tr>
-            <td>Формат аудио:</td>
-            <td>{{ video.acodec }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.acodec != None %}
+                    <tr>
+                        <td>Формат аудио:</td>
+                        <td>{{ video.acodec }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.abitrate != None %}
-        <tr>
-            <td>Битрейт аудио:</td>
-            <td>{{ video.abitrate }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.abitrate != None %}
+                    <tr>
+                        <td>Битрейт аудио:</td>
+                        <td>{{ video.abitrate }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.asamplingrate != None %}
-        <tr>
-            <td>Частота дискретизации:</td>
-            <td>{{ video.asamplingrate }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.asamplingrate != None %}
+                    <tr>
+                        <td>Частота дискретизации:</td>
+                        <td>{{ video.asamplingrate }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.abitdepth != None %}
-        <tr>
-            <td>Глубина квантования:</td>
-            <td>{{ video.abitdepth }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.abitdepth != None %}
+                    <tr>
+                        <td>Глубина квантования:</td>
+                        <td>{{ video.abitdepth }}</td>
+                    </tr>
+                    {% endif %}
 
 
-        {% if video.channels != None and video.channels != '' %}
-        <tr>
-            <td>Количество каналов:</td>
-            <td>{{ video.channels }}</td>
-        </tr>
-        {% endif %}
+                    {% if video.channels != None and video.channels != '' %}
+                    <tr>
+                        <td>Количество каналов:</td>
+                        <td>{{ video.channels }}</td>
+                    </tr>
+                    {% endif %}
 
-        </tbody>
-    </table>
-
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script>
+            $('a#show-tech-modal').click(function(){
+                $('.basic.modal')
+                        .modal('show')
+                ;
+            });
+        </script>
+    </div>
 </section>
 {% endblock %}
