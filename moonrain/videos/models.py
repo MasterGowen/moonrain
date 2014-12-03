@@ -38,7 +38,7 @@ class Video(models.Model):
     url = models.URLField("Ссылка:", max_length=256, blank=True, null=True)
     date = models.DateTimeField("Дата загрузки:", blank=True, auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    project = models.ForeignKey(Project, null=True)
+    project = models.ForeignKey(Project, null=True, blank=True)
     width = models.IntegerField("Ширина:", max_length=6, blank=True, null=True)
     height = models.IntegerField("Высота:", max_length=6, blank=True, null=True)
     resolution = models.CharField("Разрешение:", max_length=12, blank=True, null=True)

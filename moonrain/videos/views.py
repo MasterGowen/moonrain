@@ -36,8 +36,6 @@ def analysis(video):
             video.asamplingrate = track.asampling_rate
             video.abitdepth = track.bit_depth
             video.channels = track.channel_s
-
-            video.save()
     return video
 
 
@@ -84,14 +82,18 @@ def video_detail(request, pk):
             return HttpResponse(status=403)
 
 
-def new_video(request):
+def new_video(request, project_id=None):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
             video = form.save(commit=False)
             video.author = request.user
+
+            if project_id is not None and project_id is not '':
+                video.project = Project.objects.get(id=project_id)
             video = form.save()
-            analysis(video)
+            video = analysis(video)
+            video.save()
             return redirect(video)
     args = {}
     args.update(csrf(request))
@@ -99,16 +101,15 @@ def new_video(request):
     return render(request, 'videos/new.html', args)
 
 
-def add_video(request, pk):
+def add_video(request, project_id):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
             video = form.save(commit=False)
-            video.author = request.user
-            video.project = Project.objects.get(pk=pk)
-            if video.project is not None:
-                video = form.save()
-                analysis(video)
+            #video.author = request.user
+            video.project = Project.objects.get(id=project_id)
+            video = form.save()
+
             return redirect(video)
     args = {}
     args.update(csrf(request))
