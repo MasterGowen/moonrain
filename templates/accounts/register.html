@@ -23,111 +23,79 @@
     }
 </style>
 
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<div class="ui error message">
-    <div class="header">Введите корректные электронную почту и пароль.</div>
-</div>
-{% endfor %}
-{% endif %}
-
-{% if form.errors and not form.non_field_errors %}
-<div class="ui error message">
-    <div class="ui error message">Что-то пошло не так...</div>
-</div>
-{% endif %}
-
 <div class="container">
-    <h2 class="ui header">Регистрация в MOONRAIN:</h2>
-    <form method="post" action="{% url 'moonrain.accounts.views.register_user' %}">
-        {% csrf_token %}
-        <div class="ui form segment">
+    <h1 class="ui teal medium header">Вход в MOONRAIN:</h1>
+    <div class="ui fluid error form segment">
+
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="ui error message">
+            <div class="header">Ошибка!</div>
+            <p>Введите корректные электронную почту и пароль.</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if form.errors and not form.non_field_errors %}
+        <div class="ui error message">
+            <div class="header">Ошибка!</div>
+            <p>Что-то пошло не так...</p>
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'moonrain.accounts.views.register_user' %}">
+            {% csrf_token %}
+
             <div class="ui teal segment">
                 <div class="field">
                     <h5>{{ form.username.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
-                        {{ form.username }}
-                        <i class="user icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
-                    </div>
+                    {{ form.username }}
                 </div>
                 <div class="field">
                     <h5>{{ form.email.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
-                        {{ form.email }}
-                        <i class="mail outline icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
-                    </div>
+                    {{ form.email }}
                 </div>
             </div>
+
             <div class="ui teal segment">
-                <div class="field">
-                    <h5>{{ form.first_name.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
+                <div class="two fields">
+                    <div class="field">
+                        <h5>{{ form.first_name.label_tag }}</h5>
                         {{ form.first_name }}
-                        <i class="male icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <h5>{{ form.last_name.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
+
+                    <div class="field">
+                        <h5>{{ form.last_name.label_tag }}</h5>
                         {{ form.last_name }}
-                        <i class="male icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="ui teal segment">
                 <div class="field">
                     <h5>{{ form.department.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
-                        {{ form.department }}
-                        <i class="wrench icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
-                    </div>
+                    {{ form.department }}
                 </div>
             </div>
+
             <div class="ui teal segment">
                 <div class="field">
                     <h5>{{ form.password1.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
-                        {{ form.password1 }}
-                        <i class="lock icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
-                    </div>
+                    {{ form.password1 }}
                 </div>
                 <div class="field">
                     <h5>{{ form.password2.label_tag }}</h5>
-                    <div class="ui left labeled icon input">
-                        {{ form.password2 }}
-                        <i class="lock icon"></i>
-                        <div class="ui corner label">
-                            <i class="icon asterisk"></i>
-                        </div>
-                    </div>
+                    {{ form.password2 }}
                 </div>
             </div>
-            <button class="ui blue submit button" type="submit" value="register_user">
+
+            <button class="ui teal submit button" type="submit" value="register_user">
                 <i class="loading icon"></i>
                 Зарегистрироваться
             </button>
-        </div>
-        <input type="hidden" name="next" value="/" />
-    </form>
+            <input type="hidden" name="next" value="/" />
+        </form>
+    </div>
 </div>
 
 </body>

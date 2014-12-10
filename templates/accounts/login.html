@@ -14,61 +14,52 @@
 <body>
 <style>
     body {
-        background-image: url("{% static "images/back.png" %}");
-        color: #545454;
+    background-image: url("{% static "images/back.png" %}");
+    color: #545454;
     }
     div.container {
-        max-width: 700px;
-        margin: 7em auto;
+    max-width: 500px;
+    margin: 7em auto;
     }
 </style>
 
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<div class="ui error message">
-    <div class="header">Введите корректные электронную почту и пароль.</div>
-</div>
-{% endfor %}
-{% endif %}
-
-{% if form.errors and not form.non_field_errors %}
-<div class="ui error message">
-    <div class="ui error message">Что-то пошло не так...</div>
-</div>
-{% endif %}
-
 <div class="container">
-    <h1 class="ui header">Вход в MOONRAIN:</h1>
-    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-        {% csrf_token %}
+    <h1 class="ui teal medium header">Вход в MOONRAIN:</h1>
+    <div class="ui fluid error form segment">
 
-        <div class="ui form segment">
-            <div class="field">
-                <h4>{{ form.username.label_tag }}</h4>
-                <div class="ui left labeled icon input">
-                    {{ form.username }}
-                    <i class="user icon"></i>
-                    <div class="ui corner label">
-                        <i class="icon asterisk"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field">
-                <h4>{{ form.password.label_tag }}</h4>
-                <div class="ui left labeled icon input">
-                    {{ form.password }}
-                    <i class="lock icon"></i>
-                    <div class="ui corner label">
-                        <i class="icon asterisk"></i>
-                    </div>
-                </div>
-            </div>
-            <input class="ui blue submit button" type="submit" value="login"/>
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="ui error message">
+            <div class="header">Ошибка!</div>
+            <p>Введите корректные электронную почту и пароль.</p>
         </div>
-        <input type="hidden" name="next" value="/" />
-    </form>
+        {% endfor %}
+        {% endif %}
+
+        {% if form.errors and not form.non_field_errors %}
+        <div class="ui error message">
+            <div class="header">Ошибка!</div>
+            <p>Что-то пошло не так...</p>
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+            {% csrf_token %}
+
+            <div class="required field">
+                <h4>{{ form.username.label_tag }}</h4>
+                {{ form.username }}
+            </div>
+
+            <div class="required field">
+                <h4>{{ form.password.label_tag }}</h4>
+                {{ form.password }}
+            </div>
+
+            <input class="ui teal submit button" type="submit" value="login"/>
+            <input type="hidden" name="next" value="/" />
+        </form>
+    </div>
 </div>
 
 </body>
