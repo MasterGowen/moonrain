@@ -19,12 +19,17 @@
     }
     div.container {
     max-width: 700px;
-    margin: 2em auto;
+    margin: 7em auto;
+    }
+    .ui.fluid.error.form.segment {
+    -webkit-box-shadow: 2px 2px 10px 0px rgba(50, 50, 50, 0.3);
+    -moz-box-shadow:    2px 2px 10px 0px rgba(50, 50, 50, 0.3);
+    box-shadow:         2px 2px 10px 0px rgba(50, 50, 50, 0.3);
     }
 </style>
 
 <div class="container">
-    <h1 class="ui teal medium header">Вход в MOONRAIN:</h1>
+    <h1 class="ui teal medium header">Регистрация в MOONRAIN:</h1>
     <div class="ui fluid error form segment">
 
         {% if form.non_field_errors %}
@@ -47,12 +52,12 @@
             {% csrf_token %}
 
             <div class="ui teal segment">
-                <div class="field">
-                    <h5>{{ form.username.label_tag }}</h5>
+                <div class="required field">
+                    <label>{{ form.username.label_tag }}</label>
                     {{ form.username }}
                 </div>
-                <div class="field">
-                    <h5>{{ form.email.label_tag }}</h5>
+                <div class="required field">
+                    <label>{{ form.email.label_tag }}</label>
                     {{ form.email }}
                 </div>
             </div>
@@ -60,12 +65,12 @@
             <div class="ui teal segment">
                 <div class="two fields">
                     <div class="field">
-                        <h5>{{ form.first_name.label_tag }}</h5>
+                        <label>{{ form.first_name.label_tag }}</label>
                         {{ form.first_name }}
                     </div>
 
                     <div class="field">
-                        <h5>{{ form.last_name.label_tag }}</h5>
+                        <label>{{ form.last_name.label_tag }}</label>
                         {{ form.last_name }}
                     </div>
                 </div>
@@ -73,26 +78,23 @@
 
             <div class="ui teal segment">
                 <div class="field">
-                    <h5>{{ form.department.label_tag }}</h5>
+                    <label>{{ form.department.label_tag }}</label>
                     {{ form.department }}
                 </div>
             </div>
 
             <div class="ui teal segment">
-                <div class="field">
-                    <h5>{{ form.password1.label_tag }}</h5>
+                <div class="required field">
+                    <label>{{ form.password1.label_tag }}</label>
                     {{ form.password1 }}
                 </div>
-                <div class="field">
-                    <h5>{{ form.password2.label_tag }}</h5>
+                <div class="required field">
+                    <label>{{ form.password2.label_tag }}</label>
                     {{ form.password2 }}
                 </div>
             </div>
 
-            <button class="ui teal submit button" type="submit" value="register_user">
-                <i class="loading icon"></i>
-                Зарегистрироваться
-            </button>
+            <input class="ui teal submit button" type="submit" value="Зарегистрироваться"/>
             <input type="hidden" name="next" value="/" />
         </form>
     </div>

@@ -25,43 +25,25 @@
     {% csrf_token %}
     <div class="ui form segment">
         <div class="ui teal segment">
-            <div class="field">
-                <h5>{{ form.name.label_tag }}</h5>
-                <div class="ui left labeled icon input">
+            <div class="required field">
+                <label>{{ form.name.label_tag }}</label>
                     {{ form.name }}
-                    <i class="archive icon"></i>
-                    <div class="ui corner label">
-                        <i class="icon asterisk"></i>
-                    </div>
-                </div>
             </div>
 
-            <div class="field">
-                <h5>{{ form.comments.label_tag }}</h5>
-                <div class="ui left labeled icon input">
+            <div class="required field">
+                <label>{{ form.comments.label_tag }}</label>
                     {{ form.comments }}
-                    <div class="ui corner label">
-                        <i class="icon asterisk"></i>
-                    </div>
                 </div>
             </div>
 
             <div class="field">
-                <h5>{{ form.tags.label_tag }}</h5>
-                <div class="ui left labeled icon input">
+                <label>{{ form.tags.label_tag }}</label>
                     {{ form.tags }}
-                    <i class="info letter icon"></i>
-                    <div class="ui corner label">
-                        <i class="icon asterisk"></i>
-                    </div>
-                </div>
             </div>
 
-            <div class="field">
-                <h5>{{ form.permission.label_tag }}</h5>
-                <div class="ui left labeled icon input">
+            <div class="required field">
+                <label>{{ form.permission.label_tag }}</label>
                     {{ form.permission }}
-                </div>
             </div>
 
             <button class="ui blue submit button" type="submit" value="new_project">
