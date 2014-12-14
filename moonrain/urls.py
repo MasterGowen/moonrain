@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        url(r'^projects/new/$', projviews.new_project),
                        url(r'^projects/(?P<pk>\d+)/delete/$', projviews.ProjectDelete.as_view()),
                        url(r'^projects/(?P<pk>\d+)/update/$', projviews.ProjectUpdate.as_view()),
-                       url(r'^projects/(?P<project_id>\d+)/add/$', vidviews.new_video),
+                       url(r'^projects/(?P<project_id>\d+)/add/$', vidviews.new_video, name='new_video'),
                        )
 
 if settings.DEBUG:
