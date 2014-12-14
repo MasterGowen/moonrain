@@ -89,10 +89,14 @@ def new_video(request, project_id=None):
             video = form.save(commit=False)
             video.author = request.user
 
+            # Адский костыль
+            project_id = request.META['HTTP_REFERER'].split('/')[-3]
+
             if project_id is not None and project_id is not '':
                 video.project = Project.objects.get(id=project_id)
             video = form.save()
             video = analysis(video)
+            video.project = Project.objects.get(id=project_id)
             video.save()
             return redirect(video)
     args = {}
@@ -109,6 +113,7 @@ def add_video(request, project_id):
             #video.author = request.user
             video.project = Project.objects.get(id=project_id)
             video = form.save()
+            video.project = 1
 
             return redirect(video)
     args = {}
