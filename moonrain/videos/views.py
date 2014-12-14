@@ -92,29 +92,14 @@ def new_video(request, project_id=None):
             # Адский костыль
             project_id = request.META['HTTP_REFERER'].split('/')[-3]
 
-            if project_id is not None and project_id is not '':
+            try:
                 video.project = Project.objects.get(id=project_id)
+            except:
+                video.project = None
+                
             video = form.save()
             video = analysis(video)
-            video.project = Project.objects.get(id=project_id)
             video.save()
-            return redirect(video)
-    args = {}
-    args.update(csrf(request))
-    args['form'] = VideoForm()
-    return render(request, 'videos/new.html', args)
-
-
-def add_video(request, project_id):
-    if request.method == 'POST':
-        form = VideoForm(request.POST, request.FILES)
-        if form.is_valid():
-            video = form.save(commit=False)
-            #video.author = request.user
-            video.project = Project.objects.get(id=project_id)
-            video = form.save()
-            video.project = 1
-
             return redirect(video)
     args = {}
     args.update(csrf(request))
