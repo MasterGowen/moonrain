@@ -82,24 +82,33 @@ def video_detail(request, pk):
             return HttpResponse(status=403)
 
 
+def video_handler(file, author, project=None):
+    print(file, author, project)
+    video = file
+    return video
+
+
+@login_required
 def new_video(request, project_id=None):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
-            video = form.save(commit=False)
-            video.author = request.user
-
-            # Адский костыль
+            #video = form.save(commit=False)
+            #video.author = request.user
             project_id = request.META['HTTP_REFERER'].split('/')[-3]
-
             try:
-                video.project = Project.objects.get(id=project_id)
+                project = Project.objects.get(id=project_id)
             except:
-                video.project = None
-                
-            video = form.save()
-            video = analysis(video)
-            video.save()
+                project = None
+
+            video = video_handler(request.FILES['videofile'], request.user, project)
+
+
+
+
+            #video = form.save()
+            #video = analysis(video)
+            #video.save()
             return redirect(video)
     args = {}
     args.update(csrf(request))

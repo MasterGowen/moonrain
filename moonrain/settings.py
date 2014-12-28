@@ -70,6 +70,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+FILE_UPLOAD_HANDLERS = (
+    "moonrain.videos.uploadhandler.ProgressBarUploadHandler",
+    #"django.core.files.uploadhandler.MemoryFileUploadHandler",
+    #"django.core.files.uploadhandler.TemporaryFileUploadHandler",
+)
+
 SOUTH_MIGRATION_MODULES = {
     'taggit': 'taggit.south_migrations',
 }
