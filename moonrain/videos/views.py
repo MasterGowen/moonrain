@@ -1,4 +1,5 @@
 import os
+import json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -8,7 +9,7 @@ from django.http import Http404, HttpResponse
 from django.views.generic.edit import UpdateView, DeleteView
 from django.core.context_processors import csrf
 from pymediainfo import MediaInfo
-from .models import Video
+from .models import Video, VideosSequence
 from .forms import VideoForm
 from ..projects.models import Project
 
@@ -82,36 +83,41 @@ def video_detail(request, pk):
             return HttpResponse(status=403)
 
 
-def video_handler(file, author, project=None):
-    print(file, author, project)
-    video = file
-    return video
-
-
-@login_required
 def new_video(request, project_id=None):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
-            #video = form.save(commit=False)
-            #video.author = request.user
+            video = form.save(commit=False)
+            video.author = request.user
+
+            # Адский костыль
             project_id = request.META['HTTP_REFERER'].split('/')[-3]
+
             try:
-                project = Project.objects.get(id=project_id)
+                video.project = Project.objects.get(id=project_id)
             except:
-                project = None
+                video.project = None
 
-            video = video_handler(request.FILES['videofile'], request.user, project)
+            video = form.save()
+            video = analysis(video)
+            video.save()
 
+            jsonSequence = json.loads(get_sequence(request, video.project))
+            videos = jsonSequence['sequence']
+            if videos == 'None' or videos is None:
+                videos = str(video.id)
+            else:
+                videos = str(videos) + ',' + str(video.id)
 
+            update_sequence(request, video.project, videos)
 
-
-            #video = form.save()
-            #video = analysis(video)
-            #video.save()
-            return redirect(video)
+            try:
+                return redirect(video.project)
+            except:
+                return redirect(video)
     args = {}
     args.update(csrf(request))
+    args.update({"project_id": project_id})
     args['form'] = VideoForm()
     return render(request, 'videos/new.html', args)
 
@@ -125,3 +131,49 @@ class VideoDelete(DeleteView):
 class VideoUpdate(UpdateView):
     model = Video
     fields = ['name', 'videofile', 'comments', 'lang', 'tags']
+
+
+@login_required
+def new_sequence(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+    except:
+        project = None
+    response_data = {}
+    if project:
+        sequence = VideosSequence(project=project)
+        sequence.save()
+
+def get_sequence(request, project):
+    try:
+        sequence = VideosSequence.objects.filter(project_id=project.id)[0]
+    except:
+        sequence = ''
+
+    response_data = {}
+
+    if sequence:
+        response_data['status'] = 'success'
+        response_data['sequence'] = str(sequence.sequence)
+    else:
+        response_data['status'] = 'failed'
+    return json.dumps(response_data)
+
+
+def update_sequence(request, project, videos):
+
+    response_data = {}
+
+    try:
+        sequence = VideosSequence.objects.filter(project_id=project.id)[0]
+    except:
+        response_data['action'] = 'update_sequence'
+        response_data['status'] = 'failed'
+        return json.dumps(response_data)
+
+    sequence.sequence = str(videos)
+    sequence.save()
+
+    response_data['action'] = 'update_sequence'
+    response_data['status'] = 'success'
+    return json.dumps(response_data)

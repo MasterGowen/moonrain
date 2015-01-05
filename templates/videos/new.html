@@ -11,7 +11,7 @@
     <h2 class="ui header">Добавление видео:</h2>
 </div>
 
-<form method="post" action="{% url 'moonrain.videos.views.new_video' %}" enctype="multipart/form-data">
+<form method="post" id="file-upload-form" action="" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="ui form segment">
         <div class="ui teal segment">
@@ -57,13 +57,49 @@
                 </div>
             </div>
         </div>
+        <div class="ui small teal active progress" id="uploadProgress" data-percent="0" style="display: none;">
+            <div class="bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+</div>
     </div>
 
     <input type="hidden" id="X-Progress-ID" name="X-Progress-ID" value=""/>
     <input type="hidden" id="id" name="id" value=""/>
-    <button class="ui blue submit button" type="submit" value="new_video">
+</form>
+
+<button class="ui blue submit button" id='uploadButton' onclick="submitPOST();">
         <i class="archive icon"></i>
         Создать
     </button>
-</form>
+
+<script>
+    function calcProgress(event) {
+        if (event.lengthComputable) {
+            var progress = Math.round(event.loaded * 100 / event.total);
+            $('#uploadProgress>div').css({
+                width: progress + '%'
+            });
+            $('#uploadProgress div.bar div.progress').text(progress + '%');
+        }
+    };
+
+    function submitPOST() {
+        if ($('#uploadButton').hasClass("disabled") == false) {
+
+            $('#uploadButton').addClass("disabled");
+            var xhr = new XMLHttpRequest(),
+            data = new FormData($('#file-upload-form')[0]);
+
+            xhr.upload.addEventListener("progress", calcProgress, false);
+            $('#uploadProgress').css("display", "block");
+            xhr.open("POST", "/videos/new/");
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            xhr.send(data);
+            window.location.href = '/projects/' + {{ project_id }};
+        };
+    };
+
+</script>
 {% endblock %}

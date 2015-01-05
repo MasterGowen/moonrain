@@ -8,6 +8,4 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'comments', 'tags', 'permission']
-        widgets = {
-            'comments': RedactorWidget(editor_options={'lang': 'ru'})
-        }
+

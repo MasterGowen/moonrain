@@ -48,6 +48,7 @@ urlpatterns += patterns('',
                         url(r'^data/(?P<path>.*)$', 'django.views.static.serve', {
                             'document_root': settings.MEDIA_ROOT}))
 
+
 handler403 = 'views.moon_403'
 handler404 = 'moon_404'
 handler500 = 'moonrain.views.moon_500'

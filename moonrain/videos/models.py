@@ -22,7 +22,12 @@ def generate_new_filename(instance, filename):
     fullpath = time.strftime('%Y/%m') + '/' + key() + '/' + filename
     return fullpath
 
-
+class VideosSequence(models.Model):
+    '''
+    Последовательность видео в проекте
+    '''
+    project = models.ForeignKey(Project, null=True, blank=True)
+    sequence = models.TextField("Последовательность видео", max_length=2048, blank=True, null=True)
 
 class Video(models.Model):
     '''

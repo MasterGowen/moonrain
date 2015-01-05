@@ -1,7 +1,9 @@
+import json
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, DeleteView
 from .models import Project
-from ..videos.models import Video
+from ..videos.models import Video, VideosSequence
+from ..videos.views import new_sequence, get_sequence
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
@@ -47,10 +49,17 @@ def projects_list_all(request):
 def detail(request, project_id):
     try:
         project = Project.objects.get(id=project_id)
+        jsonSequence = json.loads(get_sequence(request, project))
     except ObjectDoesNotExist:
         raise Http404
 
-    videos = list(reversed(Video.objects.filter(project=project)))
+    videos_ids = jsonSequence['sequence'].split(',')
+    videos = []
+
+    for video_id in videos_ids:
+        video = Video.objects.get(id=video_id)
+        #if video.project == project:
+        videos.append(video)
 
     if project.permission == 'public':
         return render(request, 'projects/project.html', {'project': project, 'videos': videos})
@@ -72,7 +81,8 @@ def new_project(request):
         if form.is_valid():
             project = form.save(commit=False)
             project.author_id = request.user.id
-            project = form.save()
+            project.save()
+            new_sequence(request, project.id)
             return redirect(project)
     args = {}
     args.update(csrf(request))
