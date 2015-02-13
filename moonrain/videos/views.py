@@ -16,28 +16,30 @@ from ..projects.models import Project
 
 def analysis(video):
     mediainfoobject = MediaInfo.parse(str(settings.BASE_DIR) + str(os.path.normpath(video.videofile.url)))
-    for track in mediainfoobject.tracks:
-        if track.track_type == 'General':
-            video.format = track.format
-            video.filesize = track.file_size
-            video.duration = track.duration
-        if track.track_type == 'Video':
-            video.width = track.width
-            video.height = track.height
-            video.resolution = str(video.width) + 'x' + str(video.height)
-            video.vcodec = track.codec
-            video.aspect = track.display_aspect_ratio
-            video.framerate = track.frame_rate
-            video.colorspace = track.color_space
-            video.bitdepth = track.bit_depth
-            video.vbitrate = track.bit_rate
-        if track.track_type == 'Audio':
-            video.acodec = track.format
-            video.abitrate = track.bit_rate
-            video.asamplingrate = track.asampling_rate
-            video.abitdepth = track.bit_depth
-            video.channels = track.channel_s
-    return video
+    try:    
+        for track in mediainfoobject.tracks:
+            if track.track_type == 'General':
+                video.format = track.format
+                video.filesize = track.file_size
+                video.duration = track.duration
+            if track.track_type == 'Video':
+                video.width = track.width
+                video.height = track.height
+                video.resolution = str(video.width) + 'x' + str(video.height)
+                video.vcodec = track.codec
+                video.aspect = track.display_aspect_ratio
+                video.framerate = track.frame_rate
+                video.colorspace = track.color_space
+                video.bitdepth = track.bit_depth
+                video.vbitrate = track.bit_rate
+            if track.track_type == 'Audio':
+                video.acodec = track.format
+                video.abitrate = track.bit_rate
+                video.asamplingrate = track.asampling_rate
+                video.abitdepth = track.bit_depth
+                video.channels = track.channel_s
+    except:
+        return video
 
 
 @login_required
@@ -83,37 +85,41 @@ def video_detail(request, pk):
             return HttpResponse(status=403)
 
 
-def new_video(request, project_id=None):
+def new_video(request, project_id):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
+
+
+
             video = form.save(commit=False)
             video.author = request.user
-
-            # Адский костыль
-            project_id = request.META['HTTP_REFERER'].split('/')[-3]
 
             try:
                 video.project = Project.objects.get(id=project_id)
             except:
                 video.project = None
 
-            video = form.save()
             video = analysis(video)
             video.save()
-
+            
             jsonSequence = json.loads(get_sequence(request, video.project))
             videos = jsonSequence['sequence']
+
             if videos == 'None' or videos is None:
                 videos = str(video.id)
+                is_first = True
             else:
                 videos = str(videos) + ',' + str(video.id)
+                is_first = False
 
-            update_sequence(request, video.project, videos)
+            update_sequence(request, video.project, videos, is_first, is_new=True)
 
             try:
                 return redirect(video.project)
+                pass
             except:
+                video.save()
                 return redirect(video)
     args = {}
     args.update(csrf(request))
@@ -157,19 +163,35 @@ def get_sequence(request, project):
         response_data['sequence'] = str(sequence.sequence)
     else:
         response_data['status'] = 'failed'
+        response_data['sequence'] = ''
+    print(response_data)
     return json.dumps(response_data)
 
 
-def update_sequence(request, project, videos):
+def update_sequence(request, project, videos, is_first, is_new):
 
     response_data = {}
+    if not videos:
+        videos = []
+    if request.method == 'POST':
+        sequence = VideosSequence.objects.filter(project_id=project.id)[0]
+        if is_new and not is_first:
+            sequence.sequence = videos.split(',')
+        elif not is_new:
+            videos = videos.split(',')
+            for i in range(len(request.POST)):
+                videos.append(request.POST[i])
+            videos = ','.join(videos)
+            sequence.sequence = videos
+        sequence.save()
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
 
     try:
         sequence = VideosSequence.objects.filter(project_id=project.id)[0]
     except:
         response_data['action'] = 'update_sequence'
         response_data['status'] = 'failed'
-        return json.dumps(response_data)
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
 
     sequence.sequence = str(videos)
     sequence.save()

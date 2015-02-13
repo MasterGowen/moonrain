@@ -57,9 +57,10 @@ def detail(request, project_id):
     videos = []
 
     for video_id in videos_ids:
-        video = Video.objects.get(id=video_id)
-        #if video.project == project:
-        videos.append(video)
+        if video_id != 'None':
+            video = Video.objects.get(id=video_id)
+            videos.append(video)
+
 
     if project.permission == 'public':
         return render(request, 'projects/project.html', {'project': project, 'videos': videos})

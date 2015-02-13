@@ -1,26 +1,40 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-from .videos import views as vidviews
-from .projects import views as projviews
-from .accounts import views as accviews
-import moonrain.views
 
-urlpatterns = patterns('',
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^videos/$', vidviews.video_list),
-                       url(r'^videos/(?P<pk>\d+)/$', vidviews.video_detail),
-                       url(r'^videos/(?P<pk>\d+)/delete/$', vidviews.VideoDelete.as_view()),
-                       url(r'^videos/(?P<pk>\d+)/update/$', vidviews.VideoUpdate.as_view()),
-                       url(r'^videos/new/$', vidviews.new_video),
-                       url(r'^$', projviews.projects_list_all, name='all_projects'),
-                       url(r'^projects/$', projviews.projects_list_all, name='all_projects'),
-                       url(r'^projects/(?P<project_id>\d+)/$', projviews.detail),
-                       url(r'^projects/new/$', projviews.new_project),
-                       url(r'^projects/(?P<pk>\d+)/delete/$', projviews.ProjectDelete.as_view()),
-                       url(r'^projects/(?P<pk>\d+)/update/$', projviews.ProjectUpdate.as_view()),
-                       url(r'^projects/(?P<project_id>\d+)/add/$', vidviews.new_video, name='new_video'),
-                       )
+from .projects.views import ProjectUpdate, ProjectDelete
+from .videos.views import VideoDelete, VideoUpdate
+
+urlpatterns = patterns('moonrain.videos',
+  url(r'^videos/$', 'views.video_list'),
+  url(r'^videos/(?P<pk>\d+)/$', 'views.video_detail'),
+  url(r'^videos/new/$', 'views.new_video'),
+  url(r'^projects/(\d+)/add/$', 'views.new_video', name='new_video'),
+  url(r'^ajaxUpdateSequence/$', 'views.update_sequence'),
+  )
+
+urlpatterns += patterns('', 
+  url(r'^videos/(?P<pk>\d+)/delete/$', VideoDelete.as_view()),
+  url(r'^videos/(?P<pk>\d+)/update/$', VideoUpdate.as_view()),)
+
+urlpatterns += patterns('moonrain.projects',
+  url(r'^$', 'views.projects_list_all', name='all_projects'),
+  url(r'^projects/$', 'views.projects_list_all', name='all_projects'),
+  url(r'^projects/(?P<project_id>\d+)/$', 'views.detail'),
+  url(r'^projects/new/$', 'views.new_project'),
+  )
+
+urlpatterns += patterns('',
+  url(r'^projects/(?P<pk>\d+)/delete/$', ProjectDelete.as_view()),
+  url(r'^projects/(?P<pk>\d+)/update/$', ProjectUpdate.as_view()),)
+
+urlpatterns += patterns('moonrain.accounts',
+  url(r'^register/', 'views.register_user'),
+  )
+
+urlpatterns += patterns('',
+     url(r'^admin/', include(admin.site.urls)),
+  )
 
 if settings.DEBUG:
     import debug_toolbar
@@ -33,7 +47,6 @@ if settings.DEBUG:
 urlpatterns += patterns('',
                         url(r'^login/', 'django.contrib.auth.views.login', {"template_name": "accounts/login.html"}),
                         url(r'logout/', 'django.contrib.auth.views.logout'),
-                        url(r'^register/', accviews.register_user),
                         )
 
 #comments
@@ -48,7 +61,3 @@ urlpatterns += patterns('',
                         url(r'^data/(?P<path>.*)$', 'django.views.static.serve', {
                             'document_root': settings.MEDIA_ROOT}))
 
-
-handler403 = 'views.moon_403'
-handler404 = 'moon_404'
-handler500 = 'moonrain.views.moon_500'
